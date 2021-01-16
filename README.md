@@ -1,0 +1,3 @@
+# Core Repo for the fullstack.chat Community
+
+More to come soon...

@@ -1,0 +1,17 @@
+{
+  "name": "fsc.bot.v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@victorbotjs/command-hello-world": "^1.0.0",
+    "@victorbotjs/core": "^1.0.10-dev.3"
+  }
+}

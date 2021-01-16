@@ -1,0 +1,11 @@
+{
+  "ext": "js,json,yaml,env,ts",
+  "ignore": [
+    "build/*",
+    "test/*"
+  ],
+  "env": {
+    "NODE_ENV": "dev"
+  },
+  "exec": "tsc && node build/main.js"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "fullstack.chat website",
+  "private": true,
+  "scripts": {
+    "build": "gridsome build",
+    "dev": "gridsome develop",
+    "explore": "gridsome explore"
+  },
+  "dependencies": {
+    "@gridsome/source-filesystem": "^0.6.2",
+    "@gridsome/transformer-remark": "^0.6.1",
+    "axios": "^0.21.1",
+    "gridsome": "^0.7.0",
+    "gridsome-source-graphql": "^1.0.2",
+    "super-tiny-icons": "^0.4.0"
+  },
+  "devDependencies": {
+    "node-sass": "^4.14.1",
+    "sass-loader": "^7.1.0"
+  }
+}
