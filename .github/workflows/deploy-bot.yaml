@@ -46,6 +46,7 @@ jobs:
 
       - name: Push to Heroku
         run: |
+          git add .
           git commit -m "Deploying build"
           git push 
         working-directory: ${{env.working-directory}}/heroku
