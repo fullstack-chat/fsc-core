@@ -8,14 +8,32 @@ on:
 
 
 jobs:
-  build:
+  Deploy:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./fsc.bot
+      HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: ls
-        run: ls -a
+      - name: Install Packages
+        run: npm Install
+
+      - name: Build
+        run: tsc
+
+      - name: Pull from Heroku Git
+        run: git clone https://git.heroku.com/fsc-bot-test.git heroku
+
+      - name: Sync Build Directory
+        run: |
+          rm -rf ./heroku/*
+          cp ./build ./heroku
+          cp ./package.json
+          cp -r ./node_modules ./heroku
+          ls ./heroku
+
       # - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
       #   with:
       #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
