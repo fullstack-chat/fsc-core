@@ -18,6 +18,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Set Git Config
+        run: |
+          git config --global user.email "ci@fullstack.chat"
+          git config --global user.name "FSC CI"
+
       - name: Install Packages
         run: npm install
         working-directory: ${{env.working-directory}}
