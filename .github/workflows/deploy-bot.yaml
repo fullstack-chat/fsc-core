@@ -30,7 +30,7 @@ jobs:
         run: |
           printf "machine git.heroku.com\n    login brian@brianmorrison.me\n    password test" > ~/.netrc
           cat ~/.netrc
-          git clone https://heroku:${{secrest.HEROKU_API_KEY}}@git.heroku.com/fsc-bot-test.git heroku
+          git clone https://heroku:${{secrets.HEROKU_API_KEY}}@git.heroku.com/fsc-bot-test.git heroku
         working-directory: ${{env.working-directory}}
 
       - name: Sync Build Directory
