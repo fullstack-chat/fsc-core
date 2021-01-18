@@ -23,9 +23,9 @@ jobs:
           git config --global user.email "ci@fullstack.chat"
           git config --global user.name "FSC CI"
 
-      - name: Install Packages
-        run: npm install
-        working-directory: ${{env.working-directory}}
+      # - name: Install Packages
+      #   run: npm install
+      #   working-directory: ${{env.working-directory}}
 
       - name: Build
         run: tsc
@@ -40,7 +40,6 @@ jobs:
           rm -rf ./heroku/*
           cp -r ./build ./heroku
           cp ./package.json ./heroku/
-          cp -r ./node_modules ./heroku
           ls ./heroku
         working-directory: ${{env.working-directory}}
 
@@ -50,9 +49,3 @@ jobs:
           git commit -m "Deploying build"
           git push 
         working-directory: ${{env.working-directory}}/heroku
-
-      # - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
-      #   with:
-      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-      #     heroku_app_name: "fsc-bot-test" #Must be unique in Heroku
-      #     heroku_email: "brian@brianmorrison.me"
