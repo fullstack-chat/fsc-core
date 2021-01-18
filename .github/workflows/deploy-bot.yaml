@@ -19,12 +19,15 @@ jobs:
 
       - name: Install Packages
         run: npm Install
+        working-directory: ${{env.working-directory}}
 
       - name: Build
         run: tsc
+        working-directory: ${{env.working-directory}}
 
       - name: Pull from Heroku Git
         run: git clone https://git.heroku.com/fsc-bot-test.git heroku
+        working-directory: ${{env.working-directory}}
 
       - name: Sync Build Directory
         run: |
@@ -33,6 +36,7 @@ jobs:
           cp ./package.json
           cp -r ./node_modules ./heroku
           ls ./heroku
+        working-directory: ${{env.working-directory}}
 
       # - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
       #   with:
