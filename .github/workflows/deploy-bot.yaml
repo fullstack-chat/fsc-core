@@ -1,15 +1,23 @@
-name: Deploy
+name: Deploy Bot
 
 on:
-  [workflow_dispatch]
+  workflow_dispatch:
+  create:
+    tags:
+      - bot-v*
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "fsc-bot-test" #Must be unique in Heroku
-          heroku_email: "brian@brianmorrison.me"
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: ls
+        run: ls -a
+      # - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
+      #   with:
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_app_name: "fsc-bot-test" #Must be unique in Heroku
+      #     heroku_email: "brian@brianmorrison.me"
