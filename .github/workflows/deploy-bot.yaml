@@ -39,6 +39,12 @@ jobs:
           ls ./heroku
         working-directory: ${{env.working-directory}}
 
+      - name: Push to Heroku
+        run: |
+          git commit -m "Deploying build"
+          git push 
+        working-directory: ${{env.working-directory}}/heroku
+
       # - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
       #   with:
       #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
