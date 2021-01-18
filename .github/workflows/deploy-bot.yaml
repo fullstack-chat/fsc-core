@@ -34,7 +34,7 @@ jobs:
         run: |
           rm -rf ./heroku/*
           cp -r ./build ./heroku
-          cp ./package.json
+          cp ./package.json ./heroku/
           cp -r ./node_modules ./heroku
           ls ./heroku
         working-directory: ${{env.working-directory}}
