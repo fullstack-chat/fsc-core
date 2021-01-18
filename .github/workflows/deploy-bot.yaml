@@ -22,9 +22,9 @@ jobs:
           git config --global user.email "ci@fullstack.chat"
           git config --global user.name "FSC CI"
 
-      # - name: Install Packages
-      #   run: npm install
-      #   working-directory: ${{env.working-directory}}
+      - name: Install Packages
+        run: npm install
+        working-directory: ${{env.working-directory}}
 
       - name: Build
         run: tsc
