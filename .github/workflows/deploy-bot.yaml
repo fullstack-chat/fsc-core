@@ -27,7 +27,8 @@ jobs:
 
       - name: Pull from Heroku Git
         run: |
-          echo "machine git.heroku.com\n\tlogin brian@brianmorrison.me\n" > ~/.netrc
+          echo "machine git.heroku.com\n  login brian@brianmorrison.me\n" > ~/.netrc
+          cat ~/.netrc
           git clone https://git.heroku.com/fsc-bot-test.git heroku
         working-directory: ${{env.working-directory}}
 
