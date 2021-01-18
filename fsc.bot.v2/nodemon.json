@@ -1,8 +1,0 @@
-{
-  "ext": "js,json,yaml,env,ts",
-  "ignore": [
-    "dist/*",
-    "test/*"
-  ],
-  "exec": "tsc && node dist/main.js"
-}

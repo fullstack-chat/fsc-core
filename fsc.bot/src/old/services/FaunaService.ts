@@ -1,3 +1,5 @@
+// TODO: Replace this with the public version
+
 import faunadb from 'faunadb'
 const q = faunadb.query;
 

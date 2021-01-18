@@ -1,6 +1,6 @@
 import { IMiddleware } from "@victorbotjs/core";
 import { Message } from "discord.js";
-import { logXp } from "../services/XpService"
+import { logXp } from "./XpService"
 
 class XpMiddleware implements IMiddleware {
   exec(message: Message): void {

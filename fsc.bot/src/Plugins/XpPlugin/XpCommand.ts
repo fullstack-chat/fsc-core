@@ -2,7 +2,7 @@ import { ICommand } from "@victorbotjs/core"
 import DiscordCommandConfig from "@victorbotjs/core/dist/types/DiscordCommandConfig"
 import { Message } from "discord.js"
 
-import { getXpForUserId, getLevelForUserId } from '../services/XpService'
+import { getXpForUserId, getLevelForUserId } from './XpService'
 
 // const xpService = require('../services/xpService')
 

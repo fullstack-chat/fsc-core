@@ -1,6 +1,7 @@
 import { Message } from 'discord.js';
-import FaunaService from './FaunaService'
-import XpData from '../types/XpData'
+import XpData from './XpData'
+// @ts-ignore
+import FaunaService from '@brianmmdev/faunaservice';
 
 const twentyFourHoursInMs = 86400000
 const fiveMinInMs = 300000;

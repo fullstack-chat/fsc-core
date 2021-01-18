@@ -1,15 +1,17 @@
+// Deps
+import http from 'http'
 import { Bot, BotOptions } from '@victorbotjs/core'
 
 // Setup env vars
 // @ts-ignore
-import * as customEnv from 'custom-env' //require('custom-env').env(true)
+import * as customEnv from 'custom-env'
 customEnv.env(true)
 
 // Commands
-import XpCommand from './commands/XpCommand'
+import XpCommand from './Plugins/XpPlugin/XpCommand'
 
 // Middleware
-import XpMiddleware from './middleware/XpMiddleware'
+import XpMiddleware from './Plugins/XpPlugin/XpMiddleware'
 
 const opts: BotOptions = {
   discordBotConfig: {
@@ -20,9 +22,15 @@ const opts: BotOptions = {
 
 const bot = new Bot(opts)
 
-console.log(process.env.BOT_TOKEN)
-
 bot.addCommand(new XpCommand())
 bot.use(new XpMiddleware())
 
 bot.run()
+
+http.createServer(function (req, res) {
+  res.writeHead(200, {
+    'Content-Type': 'text/html'
+  });
+  res.write('ok');
+  res.end();
+}).listen(process.env.PORT || 8080);

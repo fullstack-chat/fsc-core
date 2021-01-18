@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node src/app.js",
+    "start": "node build/main.js",
     "dev": "nodemon",
     "test": "set NODE_ENV=test&&mocha tests/unit/**/*.spec.js",
     "test-integration": "set NODE_ENV=dev&&mocha tests/integration/**/*.spec.js"
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@brianmmdev/faunaservice": "^1.0.2",
     "@brianmmdev/script-scheduler": "^1.0.0",
     "@victorbotjs/core": "^1.0.10-dev.4",
     "axios": "^0.19.2",
