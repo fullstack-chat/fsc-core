@@ -7,11 +7,8 @@ import { Bot, BotOptions } from '@victorbotjs/core'
 import * as customEnv from 'custom-env'
 customEnv.env(true)
 
-// Commands
-import XpCommand from './Plugins/XpPlugin/XpCommand'
-
-// Middleware
-import XpMiddleware from './Plugins/XpPlugin/XpMiddleware'
+import FaunaDatastoreAdapter from './DatastoreAdapters/FaunaDatastoreAdapter'
+import XpPlugin from './Plugins/XpPlugin/Index'
 
 const opts: BotOptions = {
   discordBotConfig: {
@@ -22,8 +19,10 @@ const opts: BotOptions = {
 
 const bot = new Bot(opts)
 
-bot.addCommand(new XpCommand())
-bot.use(new XpMiddleware())
+const dsa = new FaunaDatastoreAdapter(process.env.FAUNA_SECRET as string, "idxByKey", "fsc-bot-data")
+bot.addDatastore(dsa)
+
+bot.use(new XpPlugin())
 
 bot.run()
 

@@ -1,7 +1,6 @@
 import { Message } from 'discord.js';
 import XpData from './XpData'
-// @ts-ignore
-import FaunaService from '@brianmmdev/faunaservice';
+import { Context } from '@victorbotjs/core';
 
 const twentyFourHoursInMs = 86400000
 const fiveMinInMs = 300000;
@@ -10,50 +9,41 @@ const rowKey = 'xpdata'
 
 let data: XpData = {}
 
-// FaunaDB Implementation
-let _faunaService: FaunaService;
-let collectionName = "fsc-bot-data"
-let indexName = "idxByKey"
-let faunaRecordId: number;
+let faunaRecordId: string;
+let didInit = false;
 
-
-export async function init() {
+export async function init(context: Context) {
   try {
-    if(_faunaService === undefined) {
-      _faunaService = new FaunaService(process.env.FAUNA_SECRET as string);
-      let record = await _faunaService.getRecordByIndex(indexName, rowKey);
+    if(!didInit && context.datastore !== undefined) {
+      const record = await context.datastore.fetch(rowKey);
       faunaRecordId = record.id
       data = record.document
+      didInit = true;
     }
   } catch(err) {
     console.error(`xpService.init: ${err.toString()}`)
   }
 }
 
-const save = async function () {
-  // await tableService.save(rowKey, data);
-
-  try {
-    // faunaData = data;
-    await _faunaService.updateRecord(collectionName, faunaRecordId, {
-      document: data
-    })
-  } catch(err) {
-    console.error(`xpService.save: ${err.toString()}`)
+async function save (context: Context) {
+  if(context.datastore !== undefined) {
+    await context.datastore.save(faunaRecordId, data)
   }
 }
 
-export async function getXpForUserId(userId: string) {
+export async function getXpForUserId(context: Context, userId: string) {
+  await init(context)
   return data[userId].currentXp
 }
 
-export async function getLevelForUserId(userId: string) {
+export async function getLevelForUserId(context: Context, userId: string) {
+  await init(context)
   let currentXp = data[userId].currentXp
   return getLevelByXp(currentXp)
 }
 
-export async function logXp(message: Message, userId: string, username: string) {
-  await init()
+export async function logXp(context: Context, message: Message, userId: string, username: string) {
+  await init(context)
   console.log(`Logging message for ${username}`)
   let currentTimestamp = Date.now()
   let user = data[userId]
@@ -100,7 +90,7 @@ export async function logXp(message: Message, userId: string, username: string) 
     user.lastXpAppliedTimestamp = currentTimestamp
     data[userId] = user
     
-    await save()
+    await save(context);
   } else {
     console.log("5 min timeout not hit, ignoring...")
   }
@@ -153,7 +143,7 @@ exports.getXpByLevel = function (level: number) {
 /**
  * Scans all users and determines if they should lose XP based on activity.
  */
-exports.processDecrementXpScript = function() {
+export async function processDecrementXpScript() {
   // Get all the users
   let currentTimestamp = Date.now()
   Object.keys(data).forEach(userId => {
@@ -161,8 +151,8 @@ exports.processDecrementXpScript = function() {
 
     if(exports.shouldDecrementXp(daysSinceContact, data[userId].penaltyCount)) {
       let decrementedXp = calculateDecrementedXp(data[userId].currentXp, daysSinceContact)
-      console.log(`INFO ONLY: Decrementing XP for user ${data[userId].username} from ${data[userId].currentXp} to ${decrementedXp}...`)
-      // data[userId].currentXp = decrementedXp
+      console.log(`Decrementing XP for user ${data[userId].username} from ${data[userId].currentXp} to ${decrementedXp}...`)
+      data[userId].currentXp = decrementedXp
       if(data[userId].penaltyCount) {
         data[userId].penaltyCount++
       } else {

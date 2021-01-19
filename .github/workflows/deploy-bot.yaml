@@ -31,7 +31,7 @@ jobs:
         working-directory: ${{env.working-directory}}
 
       - name: Pull from Heroku Git
-        run: git clone https://heroku:${{secrets.HEROKU_API_KEY}}@git.heroku.com/fsc-bot-test.git heroku
+        run: git clone https://heroku:${{secrets.HEROKU_API_KEY}}@git.heroku.com/fsc-bot.git heroku
         working-directory: ${{env.working-directory}}
 
       - name: Sync Build Directory

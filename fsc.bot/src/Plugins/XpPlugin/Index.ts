@@ -1,7 +1,17 @@
-// import XpCommand from './XpCommand'
-// import XpMiddleware from './XpMiddleware'
+import { PluginBase } from '@victorbotjs/core'
+import XpCommand from './XpCommand'
+import XpMiddleware from './XpMiddleware'
+import { processDecrementXpScript } from './XpService'
 
-// export default {
-//   middleware: XpMiddleware,
-//   commands: XpCommand
-// }
+class XpPlugin extends PluginBase {
+  commands = new XpCommand({ commandText: "xp" });
+  middleware = new XpMiddleware();
+  automations = [
+    {
+      timer: '',
+      script: processDecrementXpScript
+    }
+  ];
+}
+
+export default XpPlugin

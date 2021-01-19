@@ -1,10 +1,11 @@
-import { IMiddleware } from "@victorbotjs/core";
-import { Message } from "discord.js";
+import { MiddlewareBase, Context } from "@victorbotjs/core";
 import { logXp } from "./XpService"
+import Discord from 'discord.js'
 
-class XpMiddleware implements IMiddleware {
-  exec(message: Message): void {
-    logXp(message, message.author.id, message.author.username)
+class XpMiddleware extends MiddlewareBase {
+  exec(context: Context): void {
+    const message = context.message as Discord.Message;
+    logXp(context, message, message.author.id, message.author.username)
   }
 }
 
