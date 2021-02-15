@@ -12,7 +12,7 @@ import XpPlugin from './Plugins/XpPlugin/Index'
 
 const opts: BotOptions = {
   discordBotConfig: {
-    prefix: "!fsc",
+    prefix: "!w",
     token: process.env.BOT_TOKEN as string
   }
 }

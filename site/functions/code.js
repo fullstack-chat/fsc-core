@@ -3,24 +3,27 @@ const axios = require('axios')
 exports.handler = async event => {
   let response = {};
   if(event.httpMethod === 'OPTIONS') {
-    response.statusCode = 200
+    response = {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': '*'
+      }
+    }
+    return response
   }
-  console.log(event.body)
+  console.log(event)
   const body = JSON.parse(event.body);
   console.log('body', body)
 
-  
   let data = {
-    'client_id': '739144597934178367',
-    'client_secret': 'p_kFjG8_AyoFVV9S9HV-ewATsbMe4yqb',
+    'client_id': process.env.DISCORD_CLIENT_ID,
+    'client_secret': process.env.DISCORD_CLIENT_SECRET,
     'grant_type': 'authorization_code',
     'code': body.code,
-    'redirect_uri': 'http://localhost:8080/oauth-handler',
+    'redirect_uri': process.env.DISCORD_REDIRECT_URI,
     'scope': 'identify'
   }
-      
-  // TODO: Move to env vars
-
   let formBody = [];
   for (let property in data) {
     let encodedKey = encodeURIComponent(property);
@@ -31,7 +34,7 @@ exports.handler = async event => {
 
   // request code
   let opts = {
-    url: '',
+    url: 'https://discord.com/api/oauth2/token',
     method: 'post',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -39,12 +42,19 @@ exports.handler = async event => {
     data: formBody
   }
 
-  let res = await axios(opts);
-  repsonse = {
-    statusCode: 200,
-    body: JSON.stringify(res.data)
+  try {
+    let res = await axios(opts);
+    response = {
+      statusCode: 200,
+      body: JSON.stringify(res.data)
+    }
+  } catch (err) {
+    console.log(err)
+    response = {
+      statusCode: 400
+    }
   }
-  
+
   // Handle CORS
   if(!response.headers) {
     response.headers = {
