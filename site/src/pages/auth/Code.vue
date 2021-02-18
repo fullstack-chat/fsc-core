@@ -14,7 +14,7 @@ export default {
     // post to /.netlify/functions/code
     // TODO: Get this working without url
     let opts = {
-      url: 'http://localhost:8888/.netlify/functions/code',
+      url: `${process.env.GRIDSOME_API_URL}/code`,
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ export default {
 
     // Redirect to /me
     // TODO: Fix this and dont use the url
-    window.location = "http://localhost:8080/me"
+    window.location = `${window.location.origin}/me`
   }
 }
 </script>
