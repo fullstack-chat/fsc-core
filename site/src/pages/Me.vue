@@ -10,17 +10,45 @@
             <div class="field-header">Username:</div>
             <div class="field-value">{{userInfo.username}}</div>
 
-            <div class="field-header">Join Date:</div>
-            <div class="field-value">3/1/2019</div>
+            <!-- <div class="field-header">Join Date:</div>
+            <div class="field-value">3/1/2019</div> -->
 
             <div class="field-header">Current Xp:</div>
-            <div class="field-value">12345xp</div>
+            <div class="field-value">{{userInfo.xpData.currentXp}}xp</div>
 
-            <div class="field-header">Lifetime Xp:</div>
-            <div class="field-value">67899xp</div>
+            <div class="field-header">Level:</div>
+            <div class="field-value">{{getLevelByXp()}}</div>
+
+            <!-- <div class="field-header">Lifetime Xp:</div>
+            <div class="field-value">67899xp</div> -->
+
+            <div class="field-header">Make Profile Public:</div>
+            <input type="checkbox" name="isPublic">
           </div>
         </div>
         <hr />
+
+        <div class="me-social">
+          <h2>
+            Social Info
+          </h2>
+
+          <div class="field-header">Twitter:</div>
+          <div class="field-value">
+            <input type="text" id="twitter" name="twitter" v-model="formInfo.twitter">
+          </div>
+
+          <div class="field-header">GitHub:</div>
+          <div class="field-value">
+            <input type="text" id="github" name="github" v-model="formInfo.github">
+          </div>
+
+          <div class="field-header">Website:</div>
+          <div class="field-value">
+            <input type="text" id="website" name="website" v-model="formInfo.website">
+          </div>
+        </div>
+
         <div class="me-roles">
           <h2>
             Notification Roles
@@ -34,8 +62,9 @@
           <input type="checkbox" id="role-id789" name="role-id789">
           <label for="role-id789">Ping: Community Project</label>
         </div>
+
         <div class="me-footer">
-          <button>Save</button>
+          <button @click="save">Save</button>
         </div>
       </div>
     </div>
@@ -48,20 +77,56 @@ import axios from 'axios'
 export default {
   data: function() {
     return {
-      userInfo: {}
+      token: '',
+      userInfo: {},
+      formInfo: {}
     }
   },
   async mounted() {
-    const token = localStorage.getItem("access_token")
+    this.token = localStorage.getItem("access_token")
     let opts = {
       method: 'get',
-      url: 'http://localhost:8888/.netlify/functions/me',
+      url: `${process.env.GRIDSOME_API_URL}/me`,
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${this.token}`
       }
     }
-    let response = await axios(opts)
-    this.userInfo = response.data;
+    try {
+      let response = await axios(opts)
+      this.userInfo = response.data;
+
+      if(response.data.profile) {
+        this.formInfo = {
+          twitter: response.data.profile.twitter,
+          github: response.data.profile.github,
+          website: response.data.profile.website,
+        }
+      }
+    } catch (err) {
+      if(err.response.status === 401) {
+        window.location = process.env.GRIDSOME_LOGIN_URL
+      }
+    }
+  },
+  methods: {
+    getLevelByXp: function () {
+      const levelUpConst = 0.4;
+      const xp = this.userInfo.xpData.currentXp;
+      return Math.floor(levelUpConst * Math.sqrt(xp))
+    },
+    save: async function (event) {
+      event.preventDefault();
+      let opts = {
+        method: 'put',
+        url: `${process.env.GRIDSOME_API_URL}/update-profile`,
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        },
+        data: this.formInfo
+      }
+
+      await axios(opts);
+    }
   }
 }
 </script>
