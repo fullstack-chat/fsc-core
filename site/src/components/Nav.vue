@@ -7,7 +7,7 @@
             <g-link
               class="text-gray-800 dark:text-white text-xl font-bold md:text-2xl hover:text-gray-700 dark:hover:text-gray-200"
               to="/"
-              >Fullstack.chat</g-link
+              >fullstack.chat</g-link
             >
           </div>
 

@@ -1,129 +1,101 @@
 <template>
   <Layout hideLogo>
-    <header class="bg-white dark:bg-gray-800">
-      <div class="container px-6 py-16 mx-auto">
-        <div class="items-center md:flex">
-          <div class="w-full md:w-1/2">
-            <div class="max-w-lg">
-              <h1
-                class="text-2xl font-semibold text-gray-800 uppercase dark:text-white md:text-3xl"
-              >
-                👋 Welcome to Fullstack Chat!
-              </h1>
-              <p class="mt-2 text-gray-600 dark:text-gray-400">
-                We are a welcome and opening community of developers of all
-                skillsets and experience levels. Scroll down to see what our
-                community is all about!
-              </p>
-            </div>
-          </div>
-
-          <div
-            class="flex items-center justify-center w-full mt-6 md:mt-0 md:w-1/2"
-          >
-            <img class="w-1/2" src="/assets/images/logo-2.png" alt="" />
-          </div>
+    <div class="container mx-auto px-20 h-screen flex justify-center items-center">
+      <div class="w-4/12" >
+        <!-- Shown on small screens -->
+        <g-image alt="fullstack.chat logo" src="/assets/images/logo-2.png" class="logo mx-auto" />
+        <!-- Shown on large creens -->
+        <!-- <g-image alt="fullstack.chat logo" src="/assets/images/logo-2.png" class="logo img-fluid d-none d-lg-block" /> -->
+      </div>
+      <div class="w-8/12">
+        <h1>👋 Welcome to fullstack.chat!</h1>
+        <div class="welcome-text">
+          We are a welcome and opening community of developers of all skillsets and experience levels. Scoll down to see what our community is all about!
         </div>
       </div>
-    </header>
+    </div>
 
     <!-- Info Section -->
-    <section
-      class="bg-gray-100 dark:bg-gray-900 lg:py-24 lg:flex lg:justify-center"
-    >
-      <div
-        class="bg-white dark:bg-gray-800 lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg"
-      >
-        <div class="md:w-1/2 px-6 md:px-0 order-last md:order-first">
-          <img class="w-full rounded-lg" src="/assets/images/chat.jpg" alt="" />
+    <div class="container mx-auto px-20 h-96 flex justify-center items-center">
+      <div class="w-9/12">
+        <h3 class="section-header">😊 A Friendly Place for Experts & Beginners!</h3>
+        <div class="welcome-text">
+          Whether you're a seasoned expert or just getting started, fullstack.chat is a safe place to ask questions and grow as a developer. There's no such thing as a dumb question with us.
         </div>
+      </div>
+      <div class="w-3/12">
+        <ChatBubble username="noobmaster70" imgPath="avatars/1.png">
+          Look at this cool thing I did!
+        </ChatBubble>
+        <ChatBubble username="cryptarchR" imgPath="avatars/2.png">
+          Wow thats awesome! Great job 😀
+        </ChatBubble>
+        <ChatBubble username="wwwion_d1" imgPath="avatars/3.png">
+          How exactly does this work? So cool...
+        </ChatBubble>
+      </div>
+    </div>
 
-        <div class="max-w-xl px-6 py-12 lg:max-w-5xl md:w-1/2 order-first md:order-last">
-          <h2
-            class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl"
-          >
-            A Friendly Place for Experts &
-            <span class="text-indigo-600 dark:text-indigo-400">Beginners</span>
-          </h2>
-          <p class="mt-4 text-gray-600 dark:text-gray-400">
-            Whether you're a seasoned expert or just getting started,
-            fullstack.chat is a safe place to ask questions and grow as a
-            developer. There's no such thing as a dumb question with us.
+    <div class="container mx-auto px-20 h-96 flex justify-center items-center">
+      <div class="w-4/12" >
+        <BotImage animate/>
+      </div>
+      <div class="w-8/12">
+        <h3 class="section-header">🤖 Meet fsc.bot</h3>
+        <div class="welcome-text">
+          <p>
+            <b>fsc.bot</b> is the resident bot for server, built from the ground up for fullstack.chat. The bot is under constant development and is learning new things every day.
+          </p>
+          <p>
+            For a list of its current capabilities, use <code>!fsc help</code> in the server. To view the source (yes, it's even open source!), click on the link below;
+          </p>
+          <p>
+            <a href="https://github.com/bmorrisondev/fsc.bot" target="_blank" class="section-link">View the code on GitHub</a>
           </p>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Bot Section -->
-    <section
-      class="bg-gray-100 dark:bg-gray-900 lg:py-24 lg:flex lg:justify-center"
-    >
-      <div
-        class="bg-white dark:bg-gray-800 lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg"
-      >
-        <div class="max-w-xl px-6 py-12 lg:max-w-5xl lg:w-1/2">
-          <h2
-            class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl"
-          >
-            🤖 Meet Walter
-          </h2>
-          <p class="mt-4 text-gray-600 dark:text-gray-400">
-            Walter is the resident bot for server, built from the ground up for
-            fullstack.chat. The bot is under constant development and is
-            learning new things every day.
-          </p>
-          <p class="mt-4 text-gray-600 dark:text-gray-400">
-            For a list of its current capabilities, use
-            <code>!fsc help</code> in the server. To view the source (yes, it's
-            even open source!), click on the link below;
-          </p>
-          <a
-            href="https://github.com/fullstack-chat/fsc.bot"
-            target="_blank"
-            class="text-gray-700 dark:text-white"
-            >View the code on GitHub</a
-          >
+    <div class="container mx-auto px-20 h-96 flex justify-center items-center flex-col">
+      <div class="w-12/12">
+        <h3 class="section-header centered-header">👩‍💻 Other Activities 👨‍💻</h3>
+      </div>
+      <div class="flex space-x-4">
+        <div class="w-4/12 h-full">
+          <Card header="Workshops & Talks">
+            <p>
+              We schedule regular workshops and technical presentations for our members. Only active members are eligible to present or host, but all are welcome to join & ask questions!
+            </p>
+            <p>
+              If you are interested in presenting, coordinate with <i>brianmmdev</i> on the server or on <a href="https://twitter.com/brianmmdev" target="_blank">Twitter @brianmmdev</a>.
+            </p>
+          </Card>
         </div>
-        <div class="lg:w-1/2">
-          <img
-            class="w-full rounded-lg"
-            src="/assets/images/bot-logo-transp.png"
-            alt=""
-          />
+        <div class="w-4/12 h-full">
+          <Card header="Giveaways">
+            <p>
+              Active members are eligble for a regular, free giveaway hosted every other month. Giveaways are generally courses or other learning material to help you grow!
+            </p>
+            <h4>Current Giveaway:</h4>
+            <p>There is no giveaway at this moment. Join the Discord to be notified of future giveaways!</p>
+          </Card>
+        </div>
+        <div class="w-4/12 h-full">
+          <Card header="Mentorships (coming soon)">
+            <p>
+              We're currently working on a mentorship system where members can tag themselves as a mentor in a specific area. More on this coming soon!
+            </p>
+          </Card>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- Rules Section -->
-    <section
-      class="bg-gray-100 dark:bg-gray-900 lg:py-24 lg:flex lg:justify-center"
-    >
-      <div
-        class="bg-white dark:bg-gray-800 lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg"
-      >
-        <div class="max-w-xl px-6 py-12 mx-auto text-center">
-          <h2
-            class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl"
-          >
-            💬 Come say Hello!
-          </h2>
-          <p class="mt-4 text-gray-600 dark:text-gray-400 text-left">
-              Help keep our server friendly and welcoming by reading the rules on the rules page.
-          </p>
+    <div class="container mx-auto px-20 flex flex-col justify-center items-center pt-12">
+      <h3 class="section-header centered-header">💬 Join the Conversation!</h3>
+      <Rules :content="$page.rules.content" />
+    </div>
 
-          <div class="flex">
-            <button
-              type="button"
-              class="bg-blue-600 hover:bg-blue-700 px-3 py-2 rounded-lg font-bold text-white w-full lg:w-1/2 mx-auto mt-8"
-              :disabled="!isUserAgreedToRules"
-              @click="goToDiscord"
-            >
-              Join
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
   </Layout>
 </template>
 
@@ -137,36 +109,30 @@ query {
 </page-query>
 
 <script>
+import ChatBubble from '@/components/ChatBubble'
+import BotImage from '@/components/BotImage'
+import Card from '@/components/Card'
+import Rules from '@/components/Rules'
+
 export default {
   metaInfo: {
-    title: "fullstack.chat",
+    title: 'fullstack.chat',
     meta: [
-      { name: "og:title", content: `fullstack.chat` },
-      {
-        name: "og:description",
-        content:
-          "We are a welcome and opening community of developers of all skillsets and experience levels.",
-      },
-      { name: "og:url", content: `https://fullstack.chat` },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "og:site_name", content: "fullstack.chat" },
-      {
-        name: "og:image",
-        content: "https://fullstack.chat/assets/images/og-image.png",
-      },
-    ],
+      { name: 'og:title', content: `fullstack.chat` },
+      { name: 'og:description', content: 'We are a welcome and opening community of developers of all skillsets and experience levels.' },
+      { name: 'og:url', content: `https://fullstack.chat` },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'og:site_name', content: 'fullstack.chat' },
+      { name: 'og:image', content: 'https://fullstack.chat/assets/images/og-image.png' }
+    ]
   },
-  data: function() {
-    return {
-      isUserAgreedToRules: false,
-    };
-  },
-  methods: {
-    goToDiscord: function() {
-      window.location = "https://discord.gg/AptKHUS";
-    },
-  },
-};
+  components: {
+    ChatBubble,
+    BotImage,
+    Card,
+    Rules
+  }
+}
 </script>
 
 <style lang="sass" scoped>
@@ -182,8 +148,7 @@ a:hover
   margin-right: 10px
 
 .logo
-  // max-width: 250px
-  margin-left: auto
+  max-width: 250px
   display: block
 
 .logo-sm-screen
@@ -243,74 +208,10 @@ code
   font-size: 22px
   margin-bottom: 20px
 
-.rules-intro
-  color: white
-  margin: 10px 0px 20px 0px
-
-.rules-container
-  color: white
-  /* border: 2px solid #003459; *
-  background-color: rgba(0, 0, 0, 0.6)
-  border-radius: 15px
-  padding: 20px
-  margin: 10px auto
-
-.agree-to-rules-check
-  color: white
-  margin: 10px 0px
-
-.agree-to-rules-button
-  background-color: #00A8E8 !important
-  color: white !important
-
-.chat-bubble
-  display: flex
-  background-color: #36393F
-  color: white
-  border-radius: 5px
-  margin-bottom: 5px
-
-.chat-bubble .avatar
-  background-color: white
-  border-radius: 100%
-  height: 50px
-  width: 50px
-  padding: 10px
-  margin: 5px
-
-.chat-bubble .text-area
-  font-size: 14px
-
-.chat-bubble .username
-  padding-top: 1px
-  font-weight: bold
-
-.chat-bubble .text-area .text
-  margin-top: -1px
-  line-height: 16px
-
-.bot-logo-container
-  min-height: 400px
-
-.bot-logo
-  animation: MoveUpDown 4s linear infinite
-  position: absolute
-  left: 0
-  top: 0
-  backface-visibility: hidden
-  perspective: 1000
-
-@keyframes MoveUpDown
-  0%, 100%
-    transform: translate(0, 0)
-
-  50%
-    transform: translate(0, 10px)
-
-
 .small-screen-spacer
   height: 200px
 
 .agree-to-rules-check
   padding-right: 10px
+
 </style>

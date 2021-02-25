@@ -24,4 +24,24 @@ export default function(Vue, { router, head, isClient }) {
     defer: true,
     "data-domain": "fullstack.chat",
   });
+
+  head.link.push({
+    rel: 'stylesheet',
+    href: 'https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans&display=swap'
+  });
+
+  head.script.push({
+    src: 'https://code.jquery.com/jquery-3.5.1.slim.min.js',
+    body: true
+  })
+
+  head.script.push({
+    src: 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js',
+    body: true
+  })
+
+  head.script.push({
+    src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js',
+    body: true
+  })
 }

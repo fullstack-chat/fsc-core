@@ -17,7 +17,9 @@
     "super-tiny-icons": "^0.4.0"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^4.0.2",
     "node-sass": "^4.14.1",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "tailwindcss": "^2.0.3"
   }
 }
