@@ -25,13 +25,13 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
 .chat-bubble
   display: flex
   background-color: #36393F
   color: white
   border-radius: 5px
   margin-bottom: 5px
+  width: 100%
 
 .chat-bubble .avatar
   background-color: white

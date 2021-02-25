@@ -44,7 +44,6 @@ export default {
 
   .rules-container
     color: white
-    /* border: 2px solid #003459; *
     background-color: rgba(0, 0, 0, 0.6)
     border-radius: 15px
     padding: 20px

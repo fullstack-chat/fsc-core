@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-white dark:bg-gray-700 text-gray-700 dark:text-white">
+  <nav class="text-gray-700 dark:text-white">
     <div class="container mx-auto px-6 py-3">
       <div class="md:flex md:items-center md:justify-between">
         <div class="flex justify-between items-center">
@@ -7,6 +7,7 @@
             <g-link
               class="text-gray-800 dark:text-white text-xl font-bold md:text-2xl hover:text-gray-700 dark:hover:text-gray-200"
               to="/"
+              v-if="!isLogoHidden"
               >fullstack.chat</g-link
             >
           </div>
@@ -34,7 +35,7 @@
           class="md:flex md:items-center md:justify-end flex-1"
           :class="{ hidden: !isMenuOpen }"
         >
-          <button
+          <!-- <button
             class="rounded-lg p-2 focus:outline-none"
             @click="toggleTheme"
             aria-label="Toggle color mode"
@@ -65,7 +66,8 @@
                 ></path>
               </svg>
             </template>
-          </button>
+          </button> -->
+
           <div class="flex flex-col -mx-4 md:flex-row md:items-center md:mx-4 dark:text-white">
             <g-link
               to="/"
@@ -92,6 +94,9 @@
 <script>
 export default {
   name: "Navigation",
+  props: {
+    isLogoHidden: Boolean
+  },
   data() {
     return {
       isMenuOpen: false,

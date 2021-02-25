@@ -1,6 +1,6 @@
 <template>
-  <div class="bot-logo-container">
-    <g-image src="/assets/images/bot-logo-transp.png" class="bot-logo floaty-bot-logo" :class="{'floaty-bot-logo': animate }" />
+  <div class="bot-logo-container flex justify-center items-center">
+    <g-image src="/assets/images/walter-full-outlined.png" class="bot-logo floaty-bot-logo" :class="{'floaty-bot-logo': animate }" />
   </div>
 </template>
 
@@ -17,11 +17,10 @@ export default {
 .bot-logo-container
   min-height: 400px
   position: relative
+  width: 100%
 
 .bot-logo
   position: absolute
-  left: 0
-  top: 0
   backface-visibility: hidden
   perspective: 1000
 

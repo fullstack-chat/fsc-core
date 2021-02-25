@@ -1,6 +1,6 @@
 <template>
   <div class="card flex justify-center items-center h-full text-white">
-    <div class="max-w-sm border-2 p-6 rounded-md tracking-wide shadow-lg h-full">
+    <div class="max-w-sm p-6 rounded-md tracking-wide shadow-lg h-full bg-white dark:bg-gray-900 lg:shadow-lg lg:rounded-lg">
         <div class="flex items-center mb-4">
           <img alt="avatar" class="w-20 rounded-full border-2 border-gray-300" :src="`/assets/images/${img}`" v-if="img" />
           <div>
@@ -23,8 +23,3 @@ export default {
   }
 }
 </script>
-
-<style lang="sass" scoped>
-.card
-  background-color: #121212
-</style>
