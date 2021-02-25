@@ -35,11 +35,7 @@ exports.handler = async event => {
   if(!currentRecord) {
     await faunaService.createRecord('profiles', {
       userId,
-      document: {
-        twitter: body.twitter,
-        github: body.github,
-        website: body.website
-      }
+      document: body
     })
     response = {
       statusCode: 201
@@ -47,11 +43,7 @@ exports.handler = async event => {
   } else {
     await faunaService.updateRecord('profiles', currentRecord.id, {
       userId,
-      document: {
-        twitter: body.twitter,
-        github: body.github,
-        website: body.website
-      }
+      document: body
     })
     response = {
       statusCode: 200
