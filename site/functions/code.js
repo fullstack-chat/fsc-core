@@ -12,9 +12,8 @@ exports.handler = async event => {
     }
     return response
   }
-  console.log(event)
+
   const body = JSON.parse(event.body);
-  console.log('body', body)
 
   let data = {
     'client_id': process.env.DISCORD_CLIENT_ID,

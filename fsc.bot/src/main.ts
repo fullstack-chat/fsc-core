@@ -9,6 +9,7 @@ customEnv.env(true)
 
 import FaunaDatastoreAdapter from './DatastoreAdapters/FaunaDatastoreAdapter'
 import XpPlugin from './Plugins/XpPlugin/Index'
+import DadJokeCommand from './Commands/DadJokeCommand'
 
 const opts: BotOptions = {
   discordBotConfig: {
@@ -23,6 +24,7 @@ const dsa = new FaunaDatastoreAdapter(process.env.FAUNA_SECRET as string, "idxBy
 bot.addDatastore(dsa)
 
 bot.use(new XpPlugin())
+bot.use(new DadJokeCommand({ commandText: "joke" }))
 
 bot.run()
 
