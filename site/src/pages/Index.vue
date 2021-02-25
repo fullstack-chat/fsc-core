@@ -1,13 +1,13 @@
 <template>
   <Layout hideLogo>
-    <div class="container mx-auto px-20 h-screen flex justify-center items-center">
-      <div class="w-3/12" >
+    <div class="container mx-auto px-20 h-screen flex flex-wrap justify-center items-center">
+      <div class="w-full md:w-3/12" >
         <!-- Shown on small screens -->
         <g-image alt="fullstack.chat logo" src="/assets/images/logo-2.png" class="logo mx-auto" />
         <!-- Shown on large creens -->
         <!-- <g-image alt="fullstack.chat logo" src="/assets/images/logo-2.png" class="logo img-fluid d-none d-lg-block" /> -->
       </div>
-      <div class="w-6/12">
+      <div class="w-full md:w-6/12">
         <h1>👋 Welcome to fullstack.chat!</h1>
         <div class="welcome-text">
           We are a welcome and opening community of developers of all skillsets and experience levels. Scoll down to see what our community is all about!
@@ -16,9 +16,9 @@
     </div>
 
     <!-- Info Section -->
-    <section class="lg:py-24 lg:px-80 lg:flex lg:justify-center" >
-      <div class="bg-white dark:bg-gray-900 lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg" >
-        <div class="md:w-1/2 px-16 justify-center items-center order-last md:order-first flex flex-col">
+    <section class="lg:py-24 lg:flex lg:justify-center">
+      <div class="bg-white dark:bg-gray-900 py-16 lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg" >
+        <div class=" md:w-1/2 px-16 justify-center items-center order-last md:order-first flex flex-col">
           <ChatBubble username="noobmaster70" imgPath="avatars/1.png">
             Look at this cool thing I did!
           </ChatBubble>
@@ -46,7 +46,7 @@
 
 
     <!-- Bot Section -->
-    <section class="lg:py-24 lg:px-80 lg:flex lg:justify-center" >
+    <section class="lg:py-24 lg:flex lg:justify-center" >
       <div class="bg-white dark:bg-gray-900 lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg" >
         <div class="md:w-1/2 justify-center items-center order-last md:order-first flex relative">
           <BotImage animate/> 
@@ -68,12 +68,12 @@
       </div>
     </section>
 
-    <div class="container mx-auto px-20 h-96 flex justify-center items-center flex-col">
-      <div class="w-12/12">
+    <div class="container mx-auto px-4 lg:px-20 flex justify-center items-center flex-col">
+      <div class="w-full">
         <h3 class="section-header centered-header">👩‍💻 Other Activities 👨‍💻</h3>
       </div>
-      <div class="flex space-x-4">
-        <div class="w-4/12 h-full">
+      <div class="flex flex-wrap">
+        <div class="w-full md:w-4/12">
           <Card header="Workshops & Talks">
             <p>
               We schedule regular workshops and technical presentations for our members. Only active members are eligible to present or host, but all are welcome to join & ask questions!
@@ -83,7 +83,7 @@
             </p>
           </Card>
         </div>
-        <div class="w-4/12 h-full">
+        <div class="w-full md:w-4/12 h-full px-2 my-2 lg:my-0">
           <Card header="Giveaways">
             <p>
               Active members are eligble for a regular, free giveaway hosted every other month. Giveaways are generally courses or other learning material to help you grow!
@@ -92,7 +92,7 @@
             <p>There is no giveaway at this moment. Join the Discord to be notified of future giveaways!</p>
           </Card>
         </div>
-        <div class="w-4/12 h-full">
+        <div class="w-full md:w-4/12 h-auto">
           <Card header="Mentorships (coming soon)">
             <p>
               We're currently working on a mentorship system where members can tag themselves as a mentor in a specific area. More on this coming soon!
@@ -103,8 +103,8 @@
     </div>
 
     <!-- Rules Section -->
-    <div class="container mx-auto px-20 justify-center items-center pt-12 flex justify-center items-center">
-      <div class="flex flex-col w-1/2">
+    <div class="container mx-auto px-4 lg:px-20 justify-center items-center pt-12 flex justify-center items-center">
+      <div class="flex flex-col w-full md:w-1/2">
         <h3 class="section-header centered-header">💬 Come Say Hello!</h3>
         <Rules :content="$page.rules.content" />
       </div>
