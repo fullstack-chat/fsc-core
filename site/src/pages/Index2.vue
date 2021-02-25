@@ -28,20 +28,14 @@
     </header>
 
     <!-- Info Section -->
-    <section
-      class="bg-gray-100 dark:bg-gray-900 lg:py-24 lg:flex lg:justify-center"
-    >
-      <div
-        class="bg-white dark:bg-gray-800 lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg"
-      >
+    <section class="bg-gray-100 dark:bg-gray-900 lg:py-24 lg:flex lg:justify-center" >
+      <div class="bg-white dark:bg-gray-800 lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg" >
         <div class="md:w-1/2 px-6 md:px-0 order-last md:order-first">
           <img class="w-full rounded-lg" src="/assets/images/chat.jpg" alt="" />
         </div>
 
         <div class="max-w-xl px-6 py-12 lg:max-w-5xl md:w-1/2 order-first md:order-last">
-          <h2
-            class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl"
-          >
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-white md:text-3xl" >
             A Friendly Place for Experts &
             <span class="text-indigo-600 dark:text-indigo-400">Beginners</span>
           </h2>
