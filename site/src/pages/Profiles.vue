@@ -1,20 +1,20 @@
 <template>
   <Layout>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h1>Member Profiles</h1>
-        </div>
-        <div class="col-md-4" v-for="(p, index) in profiles" :key="index">
-          <div class="profile-card">
+    <div class="container mx-auto">
+      <div class="flex">
+        <h1 class="section-header header-centered">Member Profiles</h1>
+      </div>
+      <div class="flex flex-wrap">
+        <div class="lg:w-1/4 sm:w-1/3 w-full pb-4 m-4" v-for="(p, index) in profiles" :key="index">
+          <div class="bg-white dark:bg-gray-900 h-full text-white flex flex-col shadow-lg rounded-lg">
             <div class="profile-img">
               <img class="img-fluid" :src="p.imageUrl" />
             </div>
             <div class="name">{{ p.name }}</div>
-            <div class="bio">
+            <div class="bio flex-1">
               {{ p.bio.length > 80 ? `${p.bio.substring(0, 77)}...` : p.bio }}
             </div>
-            <div class="links">
+            <div class="links pb-2">
               <div class="link" v-for="(key, index) in Object.keys(p.links)" :key="index">
                 <a :href="generateLink(key, p.links[key])" target="_blank">
                   <img :src="`/assets/images/socials/${key}.png`" />
@@ -87,22 +87,22 @@ export default {
   width: 100%
   padding: 10px
 
-  img 
+  img
     height: 75px
     width: 75px
     border-radius: 100px
     border: 3px solid #003459
 
-.bio 
+.bio
   padding: 10px 20px
   flex: 1
 
-.links 
+.links
   display: flex
   flex-direction: row
   justify-content: space-evenly
 
-.link 
+.link
   border-left: 1px solid #003459
   display: flex
   justify-content: center
