@@ -1,209 +1,112 @@
 <template>
   <Layout hideLogo>
-    <div class="container-wrapper">
-      <div class="container-fluid">
-        <div class="row justify-content-center">
-          <div class="col-md-2">
-            <!-- Shown on small screens -->
-            <g-image alt="fullstack.chat logo" src="/assets/images/logo-2.png" class="logo-sm-screen img-fluid d-block d-lg-none" />
-            <!-- Shown on large creens -->
-            <g-image alt="fullstack.chat logo" src="/assets/images/logo-2.png" class="logo img-fluid d-none d-lg-block" />
-          </div>
-          <div class="col-md-6 welcome-col">
-            <div class="welcome-content">
-              <h1>👋 Welcome to fullstack.chat!</h1>
-              <div class="welcome-text">
-                We are a welcome and opening community of developers of all skillsets and experience levels. Scoll down to see what our community is all about!
-              </div>
-            </div>
-          </div>
+    <div class="container mx-auto px-20 h-screen flex flex-wrap justify-center items-center">
+      <div class="w-full md:w-3/12" >
+        <!-- Shown on small screens -->
+        <g-image alt="fullstack.chat logo" src="/assets/images/logo-2.png" class="logo mx-auto" />
+        <!-- Shown on large creens -->
+        <!-- <g-image alt="fullstack.chat logo" src="/assets/images/logo-2.png" class="logo img-fluid d-none d-lg-block" /> -->
+      </div>
+      <div class="w-full md:w-6/12">
+        <h1>👋 Welcome to fullstack.chat!</h1>
+        <div class="welcome-text">
+          We are a welcome and opening community of developers of all skillsets and experience levels. Scoll down to see what our community is all about!
         </div>
       </div>
     </div>
 
     <!-- Info Section -->
-    <div class="container-fluid section">
-      <div class="row justify-content-md-center">
-        <div class="col-md-2 d-block d-lg-none">
-          <div class="chat-animation ">
-            <div class="chat-bubble chat-bubble-a" data-cycle-order="1">
-              <div class="avatar">
-                <g-image src="/assets/images/avatars/1.png" class="img-fluid" />
-              </div>
-              <div class="text-area">
-                <div class="username">
-                  noobmaster70
-                </div>
-                <div class="text">
-                  Look at this cool thing I did!
-                </div>
-              </div>
-            </div>
-            <div class="chat-bubble chat-bubble-a" data-cycle-order="1">
-              <div class="avatar">
-                <g-image src="/assets/images/avatars/2.png" class="img-fluid" />
-              </div>
-              <div class="text-area">
-                <div class="username">
-                  cryptarchR
-                </div>
-                <div class="text">
-                  Wow thats awesome! Great job 😀
-                </div>
-              </div>
-            </div>
-            <div class="chat-bubble chat-bubble-a" data-cycle-order="1">
-              <div class="avatar">
-                <g-image src="/assets/images/avatars/3.png" class="img-fluid" />
-              </div>
-              <div class="text-area">
-                <div class="username">
-                  wwwion_d1
-                </div>
-                <div class="text">
-                  How exactly does this work? So cool...
-                </div>
-              </div>
-            </div>
-          </div>
+    <section class="lg:py-24 lg:flex lg:justify-center">
+      <div class="bg-white dark:bg-gray-900 py-16 lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg" >
+        <div class=" md:w-1/2 px-16 justify-center items-center order-last md:order-first flex flex-col">
+          <ChatBubble username="noobmaster70" imgPath="avatars/1.png">
+            Look at this cool thing I did!
+          </ChatBubble>
+          <ChatBubble username="cryptarchR" imgPath="avatars/2.png">
+            Wow thats awesome! Great job 😀
+          </ChatBubble>
+          <ChatBubble username="wwwion_d1" imgPath="avatars/3.png">
+            How exactly does this work? So cool...
+          </ChatBubble>
         </div>
-        <div class="col-md-4">
-          <h3 class="section-header">😊 A Friendly Place for Experts & Beginners!</h3>
-            <div class="welcome-text">
-              Whether you're a seasoned expert or just getting started, fullstack.chat is a safe place to ask questions and grow as a developer. There's no such thing as a dumb question with us.
-            </div>
-        </div>
-        <div class="col-md-2 d-none d-lg-block">
-          <div class="chat-animation ">
-            <div class="chat-bubble chat-bubble-a" data-cycle-order="1">
-              <div class="avatar">
-                <g-image src="/assets/images/avatars/1.png" class="img-fluid" />
-              </div>
-              <div class="text-area">
-                <div class="username">
-                  noobmaster70
-                </div>
-                <div class="text">
-                  Look at this cool thing I did!
-                </div>
-              </div>
-            </div>
-            <div class="chat-bubble chat-bubble-a" data-cycle-order="1">
-              <div class="avatar">
-                <g-image src="/assets/images/avatars/2.png" class="img-fluid" />
-              </div>
-              <div class="text-area">
-                <div class="username">
-                  cryptarchR
-                </div>
-                <div class="text">
-                  Wow thats awesome! Great job 😀
-                </div>
-              </div>
-            </div>
-            <div class="chat-bubble chat-bubble-a" data-cycle-order="1">
-              <div class="avatar">
-                <g-image src="/assets/images/avatars/3.png" class="img-fluid" />
-              </div>
-              <div class="text-area">
-                <div class="username">
-                  wwwion_d1
-                </div>
-                <div class="text">
-                  How exactly does this work? So cool...
-                </div>
-              </div>
-            </div>
-          </div>
+
+        <div class="max-w-xl px-6 lg:max-w-5xl md:w-1/2 order-first md:order-last">
+          <h2 class="font-bold text-gray-800 dark:text-white md:text-3xl pt-0" >
+            😊 A Friendly Place for Experts &
+            <span style="color: #4FB0FF">Beginners</span>
+          </h2>
+          <p class="mt-4 text-gray-600 dark:text-gray-400">
+            Whether you're a seasoned expert or just getting started,
+            fullstack.chat is a safe place to ask questions and grow as a
+            developer. There's no such thing as a dumb question with us.
+          </p>
         </div>
       </div>
-    </div>
+    </section>
+
 
     <!-- Bot Section -->
-    <div class="container-fluid section">
-      <div class="row justify-content-md-center">
-        <div class="col-md-2">
-          <div class="bot-logo-container">
-            <g-image src="/assets/images/bot-logo-transp.png" class="img-fluid bot-logo" />
-          </div>
-          <!-- <g-image src="/assets/images/bot-logo-transp.png" class="img-fluid bot-logo-small" /> -->
+    <section class="lg:py-24 lg:flex lg:justify-center" >
+      <div class="bg-white dark:bg-gray-900 lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg" >
+        <div class="md:w-1/2 justify-center items-center order-last md:order-first flex relative">
+          <BotImage animate/>
         </div>
-        <div class="col-md-4">
-          <h3 class="section-header">🤖 Meet fsc.bot</h3>
+        <div class="max-w-xl px-6 py-12 lg:max-w-5xl md:w-1/2 order-first md:order-last">
+          <h2 class="section-header font-bold">🤖 Meet Walter</h2>
           <div class="welcome-text">
             <p>
-              <b>fsc.bot</b> is the resident bot for server, built from the ground up for fullstack.chat. The bot is under constant development and is learning new things every day.
+              <b>Walter</b> is the resident bot for server, built from the ground up for fullstack.chat. The bot is under constant development and is learning new things every day.
             </p>
             <p>
-              For a list of its current capabilities, use <code>!fsc help</code> in the server. To view the source (yes, it's even open source!), click on the link below;
+              For a list of its current capabilities, use <code>!w help</code> in the server. To view the source (yes, it's even open source!), click on the link below;
             </p>
             <p>
-              <!-- <a href="#" class="section-link">View the Help Docs</a>  -->
-              <a href="https://github.com/bmorrisondev/fsc.bot" target="_blank" class="section-link">View the code on GitHub</a>
+              <a href="https://github.com/fullstack-chat/fsc-core" target="_blank" class="section-link">View the code on GitHub</a>
             </p>
           </div>
         </div>
-        <div class="col-md-2 d-block d-lg-none small-screen-spacer">
-
-        </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Other Activities -->
-    <div class="container section">
-      <div class="row justify-content-md-center">
-        <div class="col-md-12">
-          <h3 class="section-header centered-header">👩‍💻 Other Activities 👨‍💻</h3>
-        </div>
-        <div class="col-md-4">
-          <div class="activity-container">
-            <h3>Workshops & Talks</h3>
+    <div class="container mx-auto px-4 lg:px-20 flex justify-center items-center flex-col">
+      <div class="w-full flex">
+        <h3 class="section-header centered-header">👩‍💻 Other Activities 👨‍💻</h3>
+      </div>
+      <div class="flex flex-wrap">
+        <div class="w-full md:w-4/12">
+          <Card header="Workshops & Talks">
             <p>
               We schedule regular workshops and technical presentations for our members. Only active members are eligible to present or host, but all are welcome to join & ask questions!
             </p>
             <p>
               If you are interested in presenting, coordinate with <i>brianmmdev</i> on the server or on <a href="https://twitter.com/brianmmdev" target="_blank">Twitter @brianmmdev</a>.
             </p>
-          </div>
+          </Card>
         </div>
-        <div class="col-md-4">
-          <div class="activity-container">
-            <h3>Giveaways</h3>
+        <div class="w-full md:w-4/12 h-full px-2 my-2 lg:my-0">
+          <Card header="Giveaways">
             <p>
               Active members are eligble for a regular, free giveaway hosted every other month. Giveaways are generally courses or other learning material to help you grow!
             </p>
             <h4>Current Giveaway:</h4>
             <p>There is no giveaway at this moment. Join the Discord to be notified of future giveaways!</p>
-          </div>
+          </Card>
         </div>
-        <div class="col-md-4">
-          <div class="activity-container">
-            <h3>Mentorships <i>(coming soon)</i></h3>
+        <div class="w-full md:w-4/12 h-auto">
+          <Card header="Mentorships (coming soon)">
             <p>
               We're currently working on a mentorship system where members can tag themselves as a mentor in a specific area. More on this coming soon!
             </p>
-          </div>
+          </Card>
         </div>
       </div>
     </div>
 
-
     <!-- Rules Section -->
-    <div class="container">
-      <div class="row justify-content-md-center">
-        <div class="col-md-8">
-          <h2>💬 Join the Conversation!</h2>
-          <div class="rules-intro">Before joining, read and agree to the rules below. Help keep our server friendly and welcoming!</div>
-          <div class="rules-container" v-html="$page.rules.content"></div>
-          
-          <div class="footer" >
-            <div class="form-check agree-to-rules-check" >
-              <input type="checkbox" class="form-check-input" id="isUserAgreedToRulesCheckbox" v-model="isUserAgreedToRules">
-              <label class="form-check-label" for="isUserAgreedToRulesCheckbox">I read and agree to the rules above</label>
-            </div>
-            <button type="button" class="btn agree-to-rules-button" :disabled="!isUserAgreedToRules" @click="goToDiscord">Join fullstack.chat!</button>
-          </div>
-        </div>
+    <div class="container mx-auto px-4 lg:px-20 justify-center items-center pt-12 flex justify-center items-center">
+      <div class="flex flex-col w-full md:w-1/2">
+        <h3 class="section-header centered-header">💬 Come Say Hello!</h3>
+        <Rules :content="$page.rules.content" />
       </div>
     </div>
 
@@ -220,6 +123,11 @@ query {
 </page-query>
 
 <script>
+import ChatBubble from '@/components/ChatBubble'
+import BotImage from '@/components/BotImage'
+import Card from '@/components/Card'
+import Rules from '@/components/Rules'
+
 export default {
   metaInfo: {
     title: 'fullstack.chat',
@@ -232,44 +140,39 @@ export default {
       { name: 'og:image', content: 'https://fullstack.chat/assets/images/og-image.png' }
     ]
   },
-  data: function () {
-    return {
-      isUserAgreedToRules: false
-    }
-  },
-  methods: {
-    goToDiscord: function () {
-      window.location = "https://discord.gg/AptKHUS"
-    }
+  components: {
+    ChatBubble,
+    BotImage,
+    Card,
+    Rules
   }
 }
 </script>
 
 <style lang="sass" scoped>
-a 
+a
   color: white !important
   border-bottom: 2px solid #00a8e8
 
-a:hover 
+a:hover
   text-decoration: none !important
   border-bottom: 2px solid #003459
 
-.section-link 
+.section-link
   margin-right: 10px
 
-.logo 
-  // max-width: 250px
-  margin-left: auto
+.logo
+  max-width: 250px
   display: block
 
-.logo-sm-screen 
+.logo-sm-screen
   // max-width: 250px
   align-content: right
   /* margin: 20px auto; *
   margin: 0px auto
   display: block
 
-.full-height-row 
+.full-height-row
   height: 100vh
 
 .activity-container
@@ -281,113 +184,48 @@ a:hover
   margin: 10px auto
   height: 90%
 
-.container-wrapper 
+.container-wrapper
   min-height: 100%;  // /* Fallback for browsers do NOT support vh unit *
   min-height: 100vh; // /* These two lines are counted as one :-)       *
   display: flex
   align-items: center
 
-h1, h2, h3, h4, h5, h6 
+h1, h2, h3, h4, h5, h6
   display: inline-block
 
-h3 
+h3
   color: white
 
-code 
+code
   background-color: rgba(0, 52, 89, 0.6)
   border-radius: 5px
   padding: 0px 2px
   color: #FF8500 !important
 
-.centered-header 
+.centered-header
   text-align: center
 
-.section 
+.section
   min-height: 550px
 
-.welcome-col 
+.welcome-col
   display: flex
   flex-direction: row
 
-.welcome-content 
+.welcome-content
   padding: 0px 20px
   margin-top: auto
   margin-bottom: auto
 
-.welcome-text 
+.welcome-text
   color: white
   font-size: 22px
   margin-bottom: 20px
 
-.rules-intro 
-  color: white
-  margin: 10px 0px 20px 0px
-
-.rules-container 
-  color: white
-  /* border: 2px solid #003459; *
-  background-color: rgba(0, 0, 0, 0.6)
-  border-radius: 15px
-  padding: 20px
-  margin: 10px auto
-
-.agree-to-rules-check 
-  color: white
-  margin: 10px 0px
-
-.agree-to-rules-button 
-  background-color: #00A8E8 !important
-  color: white !important
-
-.chat-bubble 
-  display: flex
-  background-color: #36393F
-  color: white
-  border-radius: 5px
-  margin-bottom: 5px
-
-.chat-bubble .avatar 
-  background-color: white
-  border-radius: 100%
-  height: 50px
-  width: 50px
-  padding: 10px
-  margin: 5px
-
-.chat-bubble .text-area 
-  font-size: 14px
-
-.chat-bubble .username 
-  padding-top: 1px
-  font-weight: bold
-
-.chat-bubble .text-area .text 
-  margin-top: -1px
-  line-height: 16px
-
-.bot-logo-container 
-  min-height: 400px
-
-.bot-logo 
-  animation: MoveUpDown 4s linear infinite
-  position: absolute
-  left: 0
-  top: 0
-  backface-visibility: hidden
-  perspective: 1000
-
-@keyframes MoveUpDown 
-  0%, 100% 
-    transform: translate(0, 0)
-  
-  50% 
-    transform: translate(0, 10px)
-  
-
-.small-screen-spacer 
+.small-screen-spacer
   height: 200px
 
-.agree-to-rules-check 
+.agree-to-rules-check
   padding-right: 10px
 
 </style>

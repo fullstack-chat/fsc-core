@@ -17,19 +17,34 @@ export default {
   },
   props: {
     hideLogo: Boolean
+  },
+  created() {
+    document.documentElement.classList.add('dark')
   }
 }
 </script>
 
 <style lang="sass">
-body 
+body
   font-family: 'Open Sans', sans-serif
   margin: 0
   padding: 0px 0px 20px 0px
   line-height: 1.5
-  background-color: #000F14 !important
+  background-color: #14161c !important
 
-h1, h2, .section-header 
+p
+  @apply pb-4
+
+h1
+  @apply text-4xl pb-3 mb-2 #{!important}
+
+h2
+  @apply text-2xl #{!important}
+
+h3
+  @apply text-2xl pb-1 mb-2 #{!important}
+
+h1, h2, .section-header
   display: inline-block
   font-family: 'Lato', monospace
   color: white
@@ -38,29 +53,29 @@ h1, h2, .section-header
   padding-bottom: 5px;
   border-bottom: 2px solid #FF8500
 
-.layout 
+.layout
   max-width: 760px
   margin: 0 auto
   padding-left: 20px
   padding-right: 20px
 
-.header 
+.header
   display: flex
   justify-content: space-between
   align-items: center
   margin-bottom: 20px
   height: 80px
 
-.nav__link 
+.nav__link
   margin-left: 20px
 
-.footer 
+.footer
   display: flex
   justify-content: center
   align-content: center
   padding-top: 20px
 
-.copyright-and-docs 
+.copyright-and-docs
   color: white
 
   a
