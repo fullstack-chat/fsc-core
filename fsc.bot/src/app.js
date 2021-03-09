@@ -36,7 +36,7 @@ client.on("message", async (message) => {
   if(message.author.bot) {
     return;
   }
-  
+
   if(process.env.IS_XP_ENABLED !== "false") {
     xpService.logXp(message, message.author.id, message.author.username)
   }
@@ -46,16 +46,16 @@ client.on("message", async (message) => {
 
     // Handle global `help` cmd
     if(cmd && cmd.toLowerCase() === 'help') {
-      let helpResponse = "**fsc.bot Help**\n'!fsc' is used to call fsc.bot, followed by one of these commands:\n\n"
+      let helpResponse = "**Walter Help**\n'!w' is used to call Walter, followed by one of these commands:\n\n"
       Object.keys(commands).forEach(c => {
         if(commands[c].helpText) {
-          helpResponse += `**!fsc ${commands[c].command}:**`
+          helpResponse += `**!w ${commands[c].command}:**`
           helpResponse += '\n```yaml'
           helpResponse += `${commands[c].helpText}\n`
           helpResponse += '```\n'
         }
       })
-      
+
       await message.author.send(helpResponse)
       await message.delete()
       return;
@@ -71,7 +71,7 @@ client.on("message", async (message) => {
     const subCommand = message.content.split(' ')[2]
     if(subCommand && subCommand.toLowerCase() === 'help') {
       if(commands[cmd].helpText) {
-        let helpResponse = `**!fsc ${commands[cmd].command} help:**`
+        let helpResponse = `**!w ${commands[cmd].command} help:**`
         helpResponse += '\n```yaml'
         helpResponse += `${commands[cmd].helpText}\n`
         helpResponse += '```\n'
