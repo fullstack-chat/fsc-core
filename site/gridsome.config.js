@@ -1,10 +1,12 @@
-const tailwind = require("tailwindcss");
-const purgecss = require("@fullhuman/postcss-purgecss");
+// const tailwind = require("tailwindcss");
+// const purgecss = require("@fullhuman/postcss-purgecss");
 
-const postcssPlugins = [tailwind()];
+// const postcssPlugins = [tailwind()];
 
-if (process.env.NODE_ENV === "production")
-  postcssPlugins.push(purgecss(require("./purgecss.config.js")));
+// if (process.env.NODE_ENV === "production")
+//   postcssPlugins.push(purgecss(require("./purgecss.config.js")));
+
+const tailwindcss = require("tailwindcss")
 
 module.exports = {
   siteName: "fullstack.chat",
@@ -13,10 +15,19 @@ module.exports = {
     favicon: "./static/assets/images/logo-2.png",
     touchicon: "./static/assets/images/logo-2.png",
   },
+  // css: {
+  //   loaderOptions: {
+  //     postcss: {
+  //       plugins: postcssPlugins,
+  //     },
+  //   },
+  // },
   css: {
     loaderOptions: {
       postcss: {
-        plugins: postcssPlugins,
+        plugins: [
+          tailwindcss
+        ],
       },
     },
   },
@@ -31,6 +42,13 @@ module.exports = {
         },
       },
     },
+    // {
+    //   use: "gridsome-plugin-tailwindcss",
+    //   // options: {
+    //   //   shouldImport: true,
+    //   //   // shouldTimeTravel: true
+    //   // }
+    // }
   ],
   transformers: {
     remark: {

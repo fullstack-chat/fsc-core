@@ -9,4 +9,3 @@ static/admin/*.bundle.*
 yarn-error.log
 app.config.local.json
 .env.dev
-build

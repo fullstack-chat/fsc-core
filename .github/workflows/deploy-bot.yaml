@@ -26,9 +26,9 @@ jobs:
         run: npm install
         working-directory: ${{env.working-directory}}
 
-      - name: Build
-        run: tsc
-        working-directory: ${{env.working-directory}}
+      # - name: Build
+      #   run: tsc
+      #   working-directory: ${{env.working-directory}}
 
       - name: Pull from Heroku Git
         run: git clone https://heroku:${{secrets.HEROKU_API_KEY}}@git.heroku.com/fsc-bot.git heroku
@@ -37,7 +37,7 @@ jobs:
       - name: Sync Build Directory
         run: |
           rm -rf ./heroku/*
-          cp -r ./build ./heroku
+          cp -r ./src ./heroku
           cp ./package.json ./heroku/
           ls ./heroku
         working-directory: ${{env.working-directory}}
@@ -46,5 +46,5 @@ jobs:
         run: |
           git add .
           git commit -m "Deploying build"
-          git push 
+          git push
         working-directory: ${{env.working-directory}}/heroku
