@@ -169,12 +169,16 @@ export default {
       let profile = this.formInfo
       profile.img = `https://cdn.discordapp.com/avatars/${this.userInfo.id}/${this.userInfo.avatar}.png?size=128`
       profile.username = this.userInfo.username
-      profile.twitter = profile.twitter
-        .replace("https://twitter.com/", "")
-        .replace("@", "")
+      if(profile.twitter) {
+        profile.twitter = profile.twitter
+          .replace("https://twitter.com/", "")
+          .replace("@", "")
+      }
 
-      profile.github = profile.github
-        .replace("https://github.com/", "")
+      if(profile.github) {
+        profile.github = profile.github
+          .replace("https://github.com/", "")
+      }
 
       profile.links = {
         twitter: this.formInfo.twitter,
