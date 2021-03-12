@@ -8,7 +8,7 @@
               <div class="profile-wrapper">
                 <img :src="`https://cdn.discordapp.com/avatars/${userInfo.id}/${userInfo.avatar}.png?size=128`" />
               </div>
-              <div class="user-info">
+              <div class="user-info flex-1">
                 <div class="field-header">Username:</div>
                 <div class="field-value">{{userInfo.username}}</div>
 
@@ -26,6 +26,9 @@
 
                 <div class="field-header">Make Profile Public:</div>
                 <input type="checkbox" name="isPublic" v-model="formInfo.isPublic">
+
+                <div class="field-header">Bio:</div>
+                <textarea v-model="formInfo.bio" class="text-black border-1 px-4 py-2 rounded w-full h-24"></textarea>
               </div>
             </div>
           <hr class="mt-4"/>
@@ -37,17 +40,17 @@
 
             <label for="twitter" class="font-semibold block pb-1">Twitter:</label>
             <div class="flex">
-              <input class="text-black border-1 rounded-r px-4 py-2 w-1/2" type="text" name="twitter" placeholder="ex: @brianmmdev" v-model="formInfo.twitter" />
+              <input class="text-black border-1 px-4 py-2 rounded w-1/2" type="text" name="twitter" placeholder="ex: @brianmmdev" v-model="formInfo.twitter" />
             </div>
 
             <label for="github" class="font-semibold block pb-1">GitHub:</label>
             <div class="flex">
-              <input class="text-black border-1 rounded-r px-4 py-2 w-1/2" type="text" name="github" placeholder="ex: bmorrisondev" v-model="formInfo.github"/>
+              <input class="text-black border-1 px-4 py-2 rounded w-1/2" type="text" name="github" placeholder="ex: bmorrisondev" v-model="formInfo.github"/>
             </div>
 
             <label for="website" class="font-semibold block pb-1">Website:</label>
             <div class="flex">
-              <input class="text-black border-1 rounded-r px-4 py-2 w-1/2" type="text" name="website" v-model="formInfo.website"/>
+              <input class="text-black border-1 px-4 py-2 rounded w-1/2" type="text" name="website" v-model="formInfo.website"/>
             </div>
           </div>
 <!--
@@ -82,6 +85,21 @@
             </div> -->
 
             <div class="me-footer pt-8">
+              <div v-if="level < 5">
+                <div class="bg-yellow-50 border-l-8 border-yellow-900 mb-2 rounded">
+                  <div class="flex items-center">
+                      <div class="p-2">
+                          <div class="flex items-center">
+                              <p class="px-6 py-4 text-yellow-900 font-semibold text-lg">Server Level Warning</p>
+                            </div>
+                            <div class="px-6 mb-4">
+                              <p class="text-md font-bold text-yellow-500 text-sm">You may set your profile info, but it will only be active on the website if your level is 5 or greater.</p>
+                              <a class="text-gray-800 underline" href="https://www.notion.so/fullstackchat/Walter-3f6ecd2d4ea440458b36504cbcd4a5f4" target="_blank">Click here to learn more about our XP system.</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
               <button class="text-md font-bold text-white bg-gray-700 rounded-full px-5 py-2 hover:bg-gray-800" @click="save">Save</button>
               {{ savingStatus }}
             </div>
@@ -147,6 +165,23 @@ export default {
     save: async function (event) {
       event.preventDefault();
       this.savingStatus = 'Saving..'
+
+      let profile = this.formInfo
+      profile.img = `https://cdn.discordapp.com/avatars/${this.userInfo.id}/${this.userInfo.avatar}.png?size=128`
+      profile.username = this.userInfo.username
+      profile.twitter = profile.twitter
+        .replace("https://twitter.com/", "")
+        .replace("@", "")
+
+      profile.github = profile.github
+        .replace("https://github.com/", "")
+
+      profile.links = {
+        twitter: this.formInfo.twitter,
+        website: this.formInfo.website,
+        github: this.formInfo.github
+      }
+
       try {
         let opts = {
           method: 'put',
@@ -154,13 +189,11 @@ export default {
           headers: {
             Authorization: `Bearer ${this.token}`
           },
-          data: this.formInfo
+          data: profile
         }
-
-        console.log(this.formInfo)
-
         await axios(opts);
         this.savingStatus = '✅'
+
         const ctx = this
         setTimeout(() => ctx.savingStatus = '', 3000)
       } catch(err) {

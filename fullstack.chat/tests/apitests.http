@@ -16,3 +16,7 @@ Content-Type: application/json
 
 get {{base}}/me
 Authorization: Bearer LVF4ZfTD51yXPm27XzZ09AO1a2hdKz
+
+### Get public profiles
+
+get {{base}}/profiles

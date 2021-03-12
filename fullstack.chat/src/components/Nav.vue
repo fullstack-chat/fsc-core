@@ -69,21 +69,19 @@
           </button> -->
 
           <div class="flex flex-col -mx-4 md:flex-row md:items-center md:mx-4 dark:text-white">
-            <g-link
-              to="/"
-              class="mx-2 mt-2 md:mt-0 px-2 py-1 text-gray-700 dark:text-white font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-800"
-              >Home</g-link
-            >
-            <g-link
-              to="/profiles"
-              class="mx-2 mt-2 md:mt-0 px-2 py-1 text-gray-700 dark:text-white font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-800"
-              >Members</g-link
-            >
-            <a
-              href="#"
-              class="mx-2 mt-2 md:mt-0 px-2 py-1 text-gray-700 dark:text-white font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-800"
-              >Docs</a
-            >
+            <g-link to="/" class="mx-2 mt-2 md:mt-0 px-2 py-1 text-gray-700 dark:text-white font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-800" >
+              Home
+            </g-link>
+            <g-link to="/profiles" class="mx-2 mt-2 md:mt-0 px-2 py-1 text-gray-700 dark:text-white font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-800">
+              Members
+            </g-link>
+            <a href="https://www.notion.so/fullstackchat/fullstack-chat-Docs-9c3f2a571b6a4801b26ced27eb45cf90"
+              class="mx-2 mt-2 md:mt-0 px-2 py-1 text-gray-700 dark:text-white font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-800" >
+              Docs
+            </a>
+            <g-link to="/me" class="mx-2 mt-2 md:mt-0 px-2 py-1 text-gray-700 dark:text-white font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-800" >
+              Me
+            </g-link>
           </div>
         </div>
       </div>
