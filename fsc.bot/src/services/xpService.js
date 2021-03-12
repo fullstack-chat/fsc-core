@@ -17,7 +17,7 @@ let faunaData = {}
 
 exports.init = async function () {
   // data = await tableService.fetch(rowKey, data);
-  
+
   try {
     _faunaService = new FaunaService(process.env.FAUNA_SECRET);
     let record = await _faunaService.getRecordByIndex(indexName, rowKey);
@@ -71,7 +71,7 @@ exports.logXp = async function (message, userId, username) {
   if(!user.penaltyCount || user.penaltyCount > 0) {
     user.penaltyCount = 0
   }
-  
+
   // Five min timeout
   if(isNew || (currentTimestamp - user.lastXpAppliedTimestamp) > fiveMinInMs) {
     // If its been longer than 24 hours since we heard from you, reset the multiplier
@@ -86,17 +86,29 @@ exports.logXp = async function (message, userId, username) {
     }
     let newXp = user.currentXp + user.multiplier
     console.log(`Adding XP, was ${user.currentXp}, now is ${newXp}`)
-    
-    // actually apply the xp
+
+    // Actually apply the xp
     let levelResults = processXpLevel(user.currentXp, newXp)
     if(levelResults.isLeveledUp) {
       message.channel.send(`🔼 **${username}** is now level **${levelResults.currentLevel}**!`)
     }
 
+    // Automatically assign the active role
+    if(levelResults.isTransitioningToActive) {
+      try {
+        let role = message.member.roles.cache.find(role => role.id === process.env.ACTIVE_ROLE_ID);
+        if (role) {
+          message.member.guild.roles.add(role);
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
     user.currentXp = newXp
     user.lastXpAppliedTimestamp = currentTimestamp
     data[userId] = user
-    
+
     await save()
   } else {
     console.log("5 min timeout not hit, ignoring...")
@@ -104,15 +116,21 @@ exports.logXp = async function (message, userId, username) {
 }
 
 const processXpLevel = function (previousXp, newXp) {
+  let isTransitioningToActive = false;
   let oldLevel = getLevelByXp(previousXp)
   let newLevel = getLevelByXp(newXp)
   let isLeveledUp = false;
   if(newLevel > oldLevel) {
     isLeveledUp = true;
+
+    if(newLevel >= 5) {
+      isTransitioningToActive = true;
+    }
   }
   return {
     isLeveledUp: isLeveledUp,
-    currentLevel: newLevel
+    currentLevel: newLevel,
+    isTransitioningToActive
   }
 }
 
@@ -182,7 +200,7 @@ const calculateDecrementedXp = function (currentXp, daysSinceContact) {
 
 /**
  * Calculates the multiplier for which the users XP should be decremented by
- * @returns {Number} the calculated multiplier 
+ * @returns {Number} the calculated multiplier
  * @param  {Number} daysSinceContact - Number of days since we last heard from the user
  */
 exports.calculateDecrementMultiplier = function (daysSinceContact) {
@@ -209,4 +227,3 @@ exports.shouldDecrementXp = function (daysSinceContact, penaltyCount) {
   return daysSinceContact === (penaltyCount + 3)
 }
 
-  
