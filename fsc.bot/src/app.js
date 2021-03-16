@@ -14,13 +14,16 @@ let commands = {}
 
 client.on("ready", async () => {
   try {
-    await azureTableService.init()
-    await xpService.init()
-    await portfolioService.init()
+    if (process.env.IS_XP_ENABLED !== "false") {
+      await azureTableService.init()
+      await xpService.init()
+      await portfolioService.init()
+    }
     commands = await parseCommands('./src/commands')
   } catch (err) {
     console.error("Init failed:", err)
-  }
+    }
+    
   console.log(`${client.user.username} is ready!`)
 });
 
