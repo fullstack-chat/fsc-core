@@ -1,5 +1,6 @@
 const { asyncForEach } = require('../helpers');
 const { Message } = require('discord.js');
+const log = require('../logger')
 
 exports.updateMessageContent = async function (message, targetMessageId, content) {
   let textChannels = message.channel.guild.channels.cache.array().filter(c => c.type == 'text')
@@ -21,6 +22,6 @@ exports.updateMessageContent = async function (message, targetMessageId, content
   if(target && target instanceof Message) {
     await target.edit(content)
   } else {
-    console.error('Unable to find message with id', targetMessageId)
+    log.error('Unable to find message with id', targetMessageId)
   }
 }

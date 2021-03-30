@@ -11,7 +11,6 @@ AWS.config.update({
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.json(),
-  defaultMeta: { service: 'user-service' },
   transports: [
     new WinstonCloudWatch({
       cloudWatchLogs: new AWS.CloudWatchLogs(),

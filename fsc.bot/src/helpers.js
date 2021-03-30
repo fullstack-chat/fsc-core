@@ -31,7 +31,7 @@ exports.parseCommands = async function () {
     }
   });
 
-  console.log('Registered commands are:\n')
-  Object.keys(commands).forEach(c => console.log(c))
+  log.info('Registered commands are:\n')
+  Object.keys(commands).forEach(c => log.info(c))
   return commands;
 }
