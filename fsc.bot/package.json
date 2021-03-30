@@ -22,7 +22,9 @@
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "faunadb": "^3.0.1",
-    "glob": "^7.1.6"
+    "glob": "^7.1.6",
+    "winston": "^3.3.3",
+    "winston-cloudwatch": "^2.5.0"
   },
   "nodemonConfig": {
     "ignore": [
