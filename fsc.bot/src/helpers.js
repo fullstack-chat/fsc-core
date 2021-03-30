@@ -1,6 +1,7 @@
 
 const glob = require("glob");
 const path = require("path");
+const log = require('./logger')
 
 exports.asyncForEach = async function (array, callback) {
   for (let index = 0; index < array.length; index++) {
