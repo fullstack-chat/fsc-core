@@ -7,6 +7,7 @@ const tailwindcss = require("tailwindcss")
 
 module.exports = {
   siteName: 'Gridsome',
+  icon: './src/favicon.png',
   plugins: [
     // {
     //   use: "gridsome-plugin-tailwindcss",
