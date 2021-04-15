@@ -1,5 +1,6 @@
 const messageService = require('./discordMessageService')
 const tableService = require('./azureTableService')
+const log = require('../logger')
 
 const dataRowKey = 'portfolios'
 let data = {}
@@ -60,7 +61,7 @@ exports.updatePortfolios = async function (message, username, portfolioUrl) {
     await messageService.updateMessageContent(message, config.messageId, messageContent)
     await saveData()
   } catch (err) {
-    console.error("ERROR: ", err)
+    log.error("ERROR: ", err)
   }
 }
 

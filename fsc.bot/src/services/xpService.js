@@ -1,5 +1,6 @@
 const tableService = require('./azureTableService');
 const FaunaService = require('./FaunaService')
+const log = require('../logger')
 
 const twentyFourHoursInMs = 86400000
 const fiveMinInMs = 300000;
@@ -24,7 +25,7 @@ exports.init = async function () {
     faunaRecordId = record.id
     data = record.document
   } catch(err) {
-    console.error(`xpService.init: ${err.toString()}`)
+    log.error(`xpService.init: ${err.toString()}`)
   }
 }
 
@@ -37,7 +38,7 @@ const save = async function () {
       document: data
     })
   } catch(err) {
-    console.error(`xpService.save: ${err.toString()}`)
+    log.error(`xpService.save: ${err.toString()}`)
   }
 }
 
@@ -51,12 +52,12 @@ exports.getLevelForUserId = function (userId) {
 }
 
 exports.logXp = async function (message, userId, username) {
-  console.log(`Logging message for ${username}`)
+  log.info(`Logging message for ${username}`)
   let currentTimestamp = Date.now()
   let user = data[userId]
   let isNew = false;
   if(!user) {
-    console.log('User not found, creating new...')
+    log.info('User not found, creating new...')
     isNew = true;
     user = {
       lastXpAppliedTimestamp: currentTimestamp,
@@ -76,16 +77,16 @@ exports.logXp = async function (message, userId, username) {
   if(isNew || (currentTimestamp - user.lastXpAppliedTimestamp) > fiveMinInMs) {
     // If its been longer than 24 hours since we heard from you, reset the multiplier
     if ((currentTimestamp - user.lastXpAppliedTimestamp) > twentyFourHoursInMs) {
-      console.log('Multipler getting reset...')
+      log.info('Multipler getting reset...')
       user.multiplier = 1
     } else if(user.lastXpAppliedTimestamp !== currentTimestamp && user.multiplier < 5) {
-      console.log('Bumping multiplier!!!')
+      log.info('Bumping multiplier!!!')
       user.multiplier++
     } else {
-      console.log('Maxium multiplier detected, go go user!')
+      log.info('Maxium multiplier detected, go go user!')
     }
     let newXp = user.currentXp + user.multiplier
-    console.log(`Adding XP, was ${user.currentXp}, now is ${newXp}`)
+    log.info(`Adding XP, was ${user.currentXp}, now is ${newXp}`)
 
     // Actually apply the xp
     let levelResults = processXpLevel(user.currentXp, newXp)
@@ -101,7 +102,7 @@ exports.logXp = async function (message, userId, username) {
           message.member.guild.roles.add(role);
         }
       } catch (err) {
-        console.error(err)
+        log.error(err)
       }
     }
 
@@ -111,7 +112,7 @@ exports.logXp = async function (message, userId, username) {
 
     await save()
   } else {
-    console.log("5 min timeout not hit, ignoring...")
+    log.info("5 min timeout not hit, ignoring...")
   }
 }
 
@@ -176,8 +177,8 @@ exports.processDecrementXpScript = function() {
 
     if(exports.shouldDecrementXp(daysSinceContact, data[userId].penaltyCount)) {
       let decrementedXp = calculateDecrementedXp()
-      console.log(`INFO ONLY: Decrementing XP for user ${data[userId].username} from ${data[userId].currentXp} to ${decrementedXp}...`)
-      // data[userId].currentXp = decrementedXp
+      log.info(`Decrementing XP for user ${data[userId].username} from ${data[userId].currentXp} to ${decrementedXp}...`)
+      data[userId].currentXp = decrementedXp
       if(data[userId].penaltyCount) {
         data[userId].penaltyCount++
       } else {

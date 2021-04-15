@@ -9,23 +9,27 @@ const xpService = require('./services/xpService')
 const portfolioService = require('./services/portfolioService')
 const security = require('./security')
 const { parseCommands } = require('./helpers')
+const log = require('./logger')
 
 let commands = {}
 
 client.on("ready", async () => {
   try {
-    await azureTableService.init()
-    await xpService.init()
-    await portfolioService.init()
+    if (process.env.IS_XP_ENABLED !== "false") {
+      await azureTableService.init()
+      await xpService.init()
+      await portfolioService.init()
+    }
     commands = await parseCommands('./src/commands')
   } catch (err) {
-    console.error("Init failed:", err)
+    log.error("Init failed:", err)
   }
-  console.log(`${client.user.username} is ready!`)
+    
+  log.info(`${client.user.username} is ready!`)
 });
 
 client.on("error", (e) => {
-  console.log(`${client.user.username} borked: ${e}`);
+  log.info(`${client.user.username} borked: ${e}`);
 });
 
 client.on('guildMemberAdd', async member => {
@@ -63,7 +67,7 @@ client.on("message", async (message) => {
 
     // Return on unknown commands
     if (commands[cmd] === undefined) {
-      console.log('Unable to find command', cmd)
+      log.info('Unable to find command', cmd)
       return
     }
 

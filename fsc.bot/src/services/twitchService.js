@@ -1,4 +1,5 @@
 const axios = require('axios')
+const log = require('../logger')
 
 const baseUrl = "https://api.twitch.tv/helix"
 
@@ -22,7 +23,7 @@ const authenticate = async function () {
       expiry: Date.now() + (response.data.expires_in * 1000)
     }
   } catch (err) {
-    console.error("twitchService.authenticate", err)
+    log.error("twitchService.authenticate", err)
     // TODO: Handle me
   }
 }
@@ -50,7 +51,7 @@ exports.getUserInfo = async function (userLogin) {
     let response = await axios(opts)
     return response.data.data[0];
   } catch (err) {
-    console.error("twitchService.getUserInfo", err)
+    log.error("twitchService.getUserInfo", err)
     // TODO: Handle me
   }
 }
@@ -79,7 +80,7 @@ exports.subscribeToUser = async function (userLogin, discordUserId) {
     let response = await axios(opts)
     return response.data;
   } catch (err) {
-    console.error("twitchService.subscribeToUser", err)
+    log.error("twitchService.subscribeToUser", err)
     // TODO: Handle me
   }
 }
@@ -107,7 +108,7 @@ exports.unsubscribeFromUser = async function (userLogin) {
     let response = await axios(opts)
     return response.data;
   } catch (err) {
-    console.error("twitchService.unsubscribeFromUser", err)
+    log.error("twitchService.unsubscribeFromUser", err)
     // TODO: Handle me
   }
 }

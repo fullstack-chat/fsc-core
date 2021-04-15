@@ -1,4 +1,7 @@
-const fs = require('fs')
+
+const glob = require("glob");
+const path = require("path");
+const log = require('./logger')
 
 exports.asyncForEach = async function (array, callback) {
   for (let index = 0; index < array.length; index++) {
@@ -13,16 +16,23 @@ exports.rng = function (min, max) {
 
 exports.parseCommands = async function () {
   const commands = {}
-  // TODO: Figure out a better way to parse in commands
-  const files = fs.readdirSync(process.env.CMDS_ROOT)
-  const jsFiles = files.filter(file => file.endsWith('.js'))
-  jsFiles.forEach(commandFile => {
-    const imported = require(`./commands/${commandFile}`)
-    if (imported.command && imported.fn && imported.isEnabled) {
-      commands[imported.command] = imported
+
+  //TESTING - New glob node module.
+  glob.sync(process.env.CMDS_ROOT).forEach(function (file) {
+    const imported = require(path.resolve(file));
+      if (imported.command && imported.fn && imported.isEnabled) {
+        commands[imported.command] = imported
     }
-  })
-  console.log('Registered commands are:\n')
-  Object.keys(commands).forEach(c => console.log(c))
+    
+    //Added alias command support
+    if (imported.aliases && imported.fn && imported.isEnabled) {
+      for (i = 0; i < imported.aliases.length; i++) {
+        commands[imported.aliases[i]] = imported;
+      }
+    }
+  });
+
+  log.info('Registered commands are:\n')
+  Object.keys(commands).forEach(c => log.info(c))
   return commands;
 }
