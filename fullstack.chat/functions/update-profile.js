@@ -1,5 +1,50 @@
 const axios = require('axios');
 const FaunaService = require('@brianmmdev/faunaservice')
+const Discord = require('discord.js')
+
+const fscGuildId = '553773331674038282'
+
+const permittedRoleIds = [
+  '797934903584620635',
+  '770687332701044747'
+]
+
+async function updateRoles(userId, selectedRoles) {
+  const client = new Discord.Client()
+  client.on("error", () => client.destroy())
+  await client.login(process.env.BOT_TOKEN)
+
+  const guild = client.guilds.cache.find(el => el.id === fscGuildId)
+
+  let member = await guild.members.fetch(userId)
+  console.log('member', member)
+
+  let rolesToRemove = []
+  let rolesToAdd = []
+
+  permittedRoleIds.forEach(roleId => {
+    if(selectedRoles.includes(roleId)) {
+      rolesToAdd.push(roleId)
+    } else {
+      rolesToRemove.push(roleId)
+    }
+  })
+
+  console.log('adding roles', rolesToAdd)
+  console.log('removing roles', rolesToRemove)
+
+  if(rolesToRemove.length > 0) {
+    member = await member.roles.remove(rolesToRemove)
+  }
+
+  if(rolesToAdd.length > 0) {
+    member = await member.roles.add(rolesToAdd)
+  }
+
+  console.log('member after', member)
+
+  client.destroy()
+}
 
 exports.handler = async event => {
   let response = {};
@@ -15,9 +60,9 @@ exports.handler = async event => {
   }
   const body = JSON.parse(event.body);
 
-  let token = event.headers['authorization'].split(' ')[1]
+  console.log(body)
 
-  // request code
+  let token = event.headers['authorization'].split(' ')[1]
   let opts = {
     url: 'https://discord.com/api/users/@me',
     method: 'get',
@@ -29,8 +74,8 @@ exports.handler = async event => {
   let res = await axios(opts);
   let userId = res.data.id
 
+
   let faunaService = new FaunaService(process.env.FAUNA_SECRET)
-  console.log(userId)
   let currentRecord = await faunaService.getRecordByIndex('profilesByUserId', userId)
   if(!currentRecord) {
     await faunaService.createRecord('profiles', {
@@ -49,6 +94,8 @@ exports.handler = async event => {
       statusCode: 200
     }
   }
+
+  await updateRoles(userId, body.pingRoles)
 
   // Handle CORS
   if(!response.headers) {

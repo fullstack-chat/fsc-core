@@ -31,28 +31,28 @@
                 <textarea v-model="formInfo.bio" class="text-black border-1 px-4 py-2 rounded w-full h-24"></textarea>
               </div>
             </div>
-          <hr class="mt-4"/>
+            <hr class="mt-4"/>
 
-          <div class="me-social">
-            <h2>
-              Social Info
-            </h2>
+            <div class="me-social">
+              <h2>
+                Social Info
+              </h2>
 
-            <label for="twitter" class="font-semibold block pb-1">Twitter:</label>
-            <div class="flex">
-              <input class="text-black border-1 px-4 py-2 rounded w-1/2" type="text" name="twitter" placeholder="ex: @brianmmdev" v-model="formInfo.twitter" />
+              <label for="twitter" class="font-semibold block pb-1">Twitter:</label>
+              <div class="flex">
+                <input class="text-black border-1 px-4 py-2 rounded w-1/2" type="text" name="twitter" placeholder="ex: @brianmmdev" v-model="formInfo.twitter" />
+              </div>
+
+              <label for="github" class="font-semibold block pb-1">GitHub:</label>
+              <div class="flex">
+                <input class="text-black border-1 px-4 py-2 rounded w-1/2" type="text" name="github" placeholder="ex: bmorrisondev" v-model="formInfo.github"/>
+              </div>
+
+              <label for="website" class="font-semibold block pb-1">Website:</label>
+              <div class="flex">
+                <input class="text-black border-1 px-4 py-2 rounded w-1/2" type="text" name="website" v-model="formInfo.website"/>
+              </div>
             </div>
-
-            <label for="github" class="font-semibold block pb-1">GitHub:</label>
-            <div class="flex">
-              <input class="text-black border-1 px-4 py-2 rounded w-1/2" type="text" name="github" placeholder="ex: bmorrisondev" v-model="formInfo.github"/>
-            </div>
-
-            <label for="website" class="font-semibold block pb-1">Website:</label>
-            <div class="flex">
-              <input class="text-black border-1 px-4 py-2 rounded w-1/2" type="text" name="website" v-model="formInfo.website"/>
-            </div>
-          </div>
 <!--
             <div class="field-header">Twitter:</div>
             <div class="field-value">
@@ -70,19 +70,24 @@
               </div>
             </div> -->
 
-            <!-- <div class="me-roles">
-              <h2>
-                Notification Roles
-              </h2>
-              <input type="checkbox" id="role-id123" name="role-id123">
-              <label for="role-id123">Ping: JavaScript Mentors</label>
+            <div class="flex flex-col">
+              <h2 class="text-left w-full"> Notification Roles </h2>
 
-              <input type="checkbox" id="role-id456" name="role-id456">
-              <label for="role-id456">Ping: Voice Chat</label>
+              <div class="flex items-center" v-for="roleId in Object.keys(pingRoles)" :key="roleId">
+                <input type="checkbox" v-model="pingRoles[roleId].checked">
+                <label class="ml-2">{{ pingRoles[roleId].name }}</label>
+              </div>
 
-              <input type="checkbox" id="role-id789" name="role-id789">
-              <label for="role-id789">Ping: Community Project</label>
-            </div> -->
+              <!-- <div class="flex items-center">
+                <input type="checkbox" id="role-id456" name="role-id456">
+                <label class="ml-2" for="role-id456">Ping: Voice Chat</label>
+              </div>
+
+              <div class="flex items-center">
+                <input type="checkbox" id="role-id789" name="role-id789">
+                <label class="ml-2" for="role-id789">Ping: Community Project</label>
+              </div> -->
+            </div>
 
             <div class="me-footer pt-8">
               <div v-if="level < 5">
@@ -122,7 +127,17 @@ export default {
       userInfo: {},
       formInfo: {},
       level: '',
-      savingStatus: ''
+      savingStatus: '',
+      pingRoles: {
+        '797934903584620635': {
+          name: 'Voice Chat Active',
+          checked: false
+        },
+        '770687332701044747': {
+          name: 'Community Project',
+          checked: false
+        }
+      }
     }
   },
 
@@ -136,6 +151,7 @@ export default {
           Authorization: `Bearer ${this.token}`
         }
       }
+
       try {
         let response = await axios(opts)
         this.userInfo = response.data;
@@ -146,6 +162,10 @@ export default {
 
         if(response.data.profile) {
           this.formInfo = response.data.profile
+
+          if(response.data.profile.pingRoles) {
+            response.data.profile.pingRoles.forEach(roleId => this.pingRoles[roleId].checked = true)
+          }
         }
       } catch (err) {
         console.error(err)
@@ -162,6 +182,7 @@ export default {
       const levelUpConst = 0.4;
       return Math.floor(levelUpConst * Math.sqrt(xp))
     },
+
     save: async function (event) {
       event.preventDefault();
       this.savingStatus = 'Saving..'
@@ -185,6 +206,13 @@ export default {
         website: this.formInfo.website,
         github: this.formInfo.github
       }
+
+      profile.pingRoles = []
+      Object.keys(this.pingRoles).forEach(el => {
+        if(this.pingRoles[el].checked) {
+          profile.pingRoles.push(el)
+        }
+      })
 
       try {
         let opts = {

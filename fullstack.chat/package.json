@@ -10,6 +10,7 @@
   "dependencies": {
     "@brianmmdev/faunaservice": "^1.0.3",
     "axios": "^0.21.1",
+    "discord.js": "^12.5.3",
     "gridsome": "^0.7.0",
     "super-tiny-icons": "^0.4.0"
   },
