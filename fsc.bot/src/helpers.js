@@ -1,5 +1,4 @@
-
-const glob = require("glob");
+const fs = require("fs");
 const path = require("path");
 const log = require('./logger')
 
@@ -17,9 +16,11 @@ exports.rng = function (min, max) {
 exports.parseCommands = async function () {
   const commands = {}
 
-  //TESTING - New glob node module.
-  glob.sync(process.env.CMDS_ROOT).forEach(function (file) {
-    const imported = require(path.resolve(file));
+  let files = await fs.readdirSync(__dirname + '/commands')
+
+  for (let index = 0; index < files.length; index++) {
+    const file = files[index];
+    const imported = require(path.resolve(__dirname + `/commands/${file}`));
       if (imported.command && imported.fn && imported.isEnabled) {
         commands[imported.command] = imported
     }
@@ -30,7 +31,8 @@ exports.parseCommands = async function () {
         commands[imported.aliases[i]] = imported;
       }
     }
-  });
+
+  }
 
   log.info('Registered commands are:\n')
   Object.keys(commands).forEach(c => log.info(c))

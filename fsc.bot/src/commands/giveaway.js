@@ -21,9 +21,9 @@ module.exports = {
         eligibleUsers = eligibleUsers.filter(el => el !== 'brianmm02' && el !== 'Diamond')
 
         let winnerIdx = rng(0, eligibleUsers.length)
-        msg.channel.send(`Selected giveaway winner is **${eligibleUsers[winnerIdx]}**`)
+        return msg.channel.send(`Selected giveaway winner is **${eligibleUsers[winnerIdx]}**`)
       } else {
-        msg.author.send("You are not permitted to use the '!fsc giveaway select-winner' command..")
+        return msg.author.send("You are not permitted to use the '!fsc giveaway select-winner' command..")
       }
     }
 
