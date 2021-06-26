@@ -15,7 +15,7 @@ let commands = {}
 
 client.on("ready", async () => {
   try {
-    if (process.env.IS_XP_ENABLED !== "false") {
+    if (process.env.IS_XP_ENABLED) {
       await azureTableService.init()
       await xpService.init()
       await portfolioService.init()
@@ -24,6 +24,9 @@ client.on("ready", async () => {
   } catch (err) {
     log.error("Init failed:", err)
   }
+
+  let logChannel = client.channels.cache.find(i => i.id === '738860914723258429')
+  logChannel.send('Would you like to play a game?')
     
   log.info(`${client.user.username} is ready!`)
 });
@@ -41,11 +44,11 @@ client.on("message", async (message) => {
     return;
   }
 
-  if(process.env.IS_XP_ENABLED !== "false") {
+  if(process.env.IS_XP_ENABLED) {
     xpService.logXp(message, message.author.id, message.author.username)
   }
 
-  if(message.content.startsWith(process.env.PREFIX)) {
+  if(message.content.startsWith('!w')) {
     const cmd = message.content.split(' ')[1];
 
     // Handle global `help` cmd
