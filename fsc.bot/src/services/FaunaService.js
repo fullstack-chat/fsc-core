@@ -48,6 +48,7 @@ module.exports = class FaunaService {
   }
 
   async updateRecord(collectionName, recordId, updates) {
+    console.log("updateRecord", collectionName, recordId, updates)
     try {
       let updated = await this.serverClient.query(
         q.Update(

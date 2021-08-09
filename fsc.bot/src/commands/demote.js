@@ -3,7 +3,7 @@ const security = require('../security')
 
 module.exports = {
   command: 'demote',
-  isEnabled: true,
+  isEnabled: false,
   fn: async msg => {
     let isMod = await security.isMod(msg, msg.author.id)
 

@@ -72,9 +72,9 @@
             <g-link to="/" class="mx-2 mt-2 md:mt-0 px-2 py-1 text-gray-700 dark:text-white font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-800" >
               Home
             </g-link>
-            <g-link to="/profiles" class="mx-2 mt-2 md:mt-0 px-2 py-1 text-gray-700 dark:text-white font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-800">
+            <!-- <g-link to="/profiles" class="mx-2 mt-2 md:mt-0 px-2 py-1 text-gray-700 dark:text-white font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-800">
               Members
-            </g-link>
+            </g-link> -->
             <a href="https://www.notion.so/fullstackchat/fullstack-chat-Docs-9c3f2a571b6a4801b26ced27eb45cf90"
               class="mx-2 mt-2 md:mt-0 px-2 py-1 text-gray-700 dark:text-white font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-800" >
               Docs

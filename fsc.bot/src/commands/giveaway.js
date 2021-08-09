@@ -6,7 +6,7 @@ const minimumLevel = 5
 
 module.exports = {
   command: 'giveaway',
-  isEnabled: true,
+  isEnabled: false,
   shouldCleanup: true,
   fn: async msg => {
     let args = msg.content.split(' ')
