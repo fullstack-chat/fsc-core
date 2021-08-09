@@ -173,11 +173,12 @@ exports.processDecrementXpScript = function() {
   let currentTimestamp = Date.now()
   Object.keys(data).forEach(userId => {
     let daysSinceContact = (currentTimestamp - data[userId].lastXpAppliedTimestamp) / twentyFourHoursInMs
+    let shouldDecrementXp = exports.shouldDecrementXp(daysSinceContact, data[userId].penaltyCount)
 
-    if(exports.shouldDecrementXp(daysSinceContact, data[userId].penaltyCount)) {
-      let decrementedXp = calculateDecrementedXp()
-      log.info(`Decrementing XP for user ${data[userId].username} from ${data[userId].currentXp} to ${decrementedXp}...`)
-      data[userId].currentXp = decrementedXp
+    if(shouldDecrementXp) {
+      let decrementedXp = calculateDecrementedXp(data[userId].currentXp, daysSinceContact)
+      log.info(`[NO ACTION] Decrementing XP for user ${data[userId].username} from ${data[userId].currentXp} (${typeof(data[userId].currentXp)}) to ${decrementedXp} (${typeof(decrementedXp)})...`)
+      // data[userId].currentXp = decrementedXp
       if(data[userId].penaltyCount) {
         data[userId].penaltyCount++
       } else {
