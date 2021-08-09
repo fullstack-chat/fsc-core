@@ -15,7 +15,7 @@ const helpText = `
 
 module.exports = {
   command: 'timezone',
-  isEnabled: true,
+  isEnabled: false,
   helpText,
   aliases: ["tz"],
   fn: async msg => {

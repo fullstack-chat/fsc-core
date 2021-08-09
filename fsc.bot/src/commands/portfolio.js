@@ -19,7 +19,7 @@ const helpText = `
 
 module.exports = {
   command: 'portfolio',
-  isEnabled: true,
+  isEnabled: false,
   helpText,
   shouldCleanup: true,
   fn: async msg => {
