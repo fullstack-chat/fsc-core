@@ -6,7 +6,7 @@ module.exports = class FaunaService {
     this.serverClient = new faunadb.Client({secret: faunaSecret})
   }
 
-  createRecord = async function (collectionName, data) {
+  async createRecord(collectionName, data) {
     let record = await this.serverClient.query(
       q.Create(
         q.Collection(collectionName),
@@ -18,7 +18,7 @@ module.exports = class FaunaService {
     return recordData
   }
 
-  getRecordByIndex = async function (indexName, value) {
+  async getRecordByIndex(indexName, value) {
     try {
       let record = await this.serverClient.query(
         q.Get(
@@ -36,7 +36,7 @@ module.exports = class FaunaService {
     }
   }
 
-  deleteRecord = async function(collectionName, recordId) {
+  async deleteRecord(collectionName, recordId) {
     await this.serverClient.query(
       q.Delete(
         q.Ref(
@@ -47,7 +47,7 @@ module.exports = class FaunaService {
     )
   }
 
-  updateRecord = async function (collectionName, recordId, updates) {
+  async updateRecord(collectionName, recordId, updates) {
     try {
       let updated = await this.serverClient.query(
         q.Update(

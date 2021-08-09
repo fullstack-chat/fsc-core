@@ -1,4 +1,3 @@
-const tableService = require('./azureTableService');
 const FaunaService = require('./FaunaService')
 const log = require('../logger')
 

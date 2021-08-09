@@ -10,7 +10,7 @@
       <div class="w-full md:w-6/12">
         <h1>👋 Welcome to fullstack.chat!</h1>
         <div class="welcome-text">
-          We are a welcome and opening community of developers of all skillsets and experience levels. Scoll down to see what our community is all about!
+          We are a welcome and opening community of developers of all skillsets and experience levels. Scroll down to see what our community is all about!
         </div>
       </div>
     </div>

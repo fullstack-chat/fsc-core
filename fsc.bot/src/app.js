@@ -4,9 +4,8 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const scheduler = require('@brianmmdev/script-scheduler')
 
-const azureTableService = require('./services/azureTableService')
 const xpService = require('./services/xpService')
-const portfolioService = require('./services/portfolioService')
+// const portfolioService = require('./services/portfolioService')
 const security = require('./security')
 const { parseCommands } = require('./helpers')
 const log = require('./logger')
@@ -16,17 +15,13 @@ let commands = {}
 client.on("ready", async () => {
   try {
     if (process.env.IS_XP_ENABLED) {
-      await azureTableService.init()
       await xpService.init()
-      await portfolioService.init()
+      // await portfolioService.init()
     }
     commands = await parseCommands('./src/commands')
   } catch (err) {
     log.error("Init failed:", err)
   }
-
-  let logChannel = client.channels.cache.find(i => i.id === '738860914723258429')
-  logChannel.send('Would you like to play a game?')
     
   log.info(`${client.user.username} is ready!`)
 });
