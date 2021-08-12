@@ -89,6 +89,7 @@ exports.logXp = async function (message, userId, username) {
 
     // Actually apply the xp
     let levelResults = processXpLevel(user.currentXp, newXp)
+    console.log("levelResults", levelResults)
     if(levelResults.isLeveledUp) {
       message.channel.send(`🔼 **${username}** is now level **${levelResults.currentLevel}**!`)
     }
@@ -97,10 +98,12 @@ exports.logXp = async function (message, userId, username) {
     if(levelResults.isTransitioningToActive) {
       try {
         let role = message.member.roles.cache.find(role => role.id === process.env.ACTIVE_ROLE_ID);
+        console.log(role)
         if (role) {
           message.member.guild.roles.add(role);
         }
       } catch (err) {
+        console.log(err)
         log.error(err)
       }
     }
