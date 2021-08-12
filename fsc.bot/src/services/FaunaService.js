@@ -40,7 +40,7 @@ module.exports = class FaunaService {
     await this.serverClient.query(
       q.Delete(
         q.Ref(
-          q.Collection(collectionName), 
+          q.Collection(collectionName),
           recordId
         )
       )
@@ -48,12 +48,11 @@ module.exports = class FaunaService {
   }
 
   async updateRecord(collectionName, recordId, updates) {
-    console.log("updateRecord", collectionName, recordId, updates)
     try {
       let updated = await this.serverClient.query(
         q.Update(
           q.Ref(
-            q.Collection(collectionName), 
+            q.Collection(collectionName),
             recordId,
           ),
           {

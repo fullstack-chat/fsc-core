@@ -97,11 +97,12 @@ exports.logXp = async function (message, userId, username) {
     // Automatically assign the active role
     if(levelResults.isTransitioningToActive) {
       try {
-        let role = message.member.roles.cache.find(role => role.id === process.env.ACTIVE_ROLE_ID);
-        console.log(role)
-        if (role) {
-          message.member.guild.roles.add(role);
-        }
+        await member.roles.add(process.env.ACTIVE_ROLE_ID)
+        // let role = message.member.roles.cache.find(role => role.id === process.env.ACTIVE_ROLE_ID);
+        // console.log(role)
+        // if (role) {
+        //   message.member.guild.roles.add(role);
+        // }
       } catch (err) {
         console.log(err)
         log.error(err)
