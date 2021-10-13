@@ -1,10 +1,10 @@
 <template>
   <div class="main">
-    <Nav :isLogoHidden="hideLogo"/>
+    <!-- <Nav :isLogoHidden="hideLogo"/> -->
     <slot/>
-    <div class="footer">
+    <!-- <div class="footer">
       <span class="copyright-and-docs">© {{new Date().getFullYear()}}</span>
-    </div>
+    </div> -->
   </div>
 </template>
 

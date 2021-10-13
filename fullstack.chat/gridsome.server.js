@@ -7,27 +7,27 @@ const axios = require('axios')
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = function (api) {
-  api.loadSource(async actions => {
-    try {
-      let opts = {
-        method: 'get',
-        url: `${process.env.GRIDSOME_API_URL}/profiles`,
-        headers: {
-          'Authorization': process.env.API_KEY
-        }
-      }
-      let profileData = await axios(opts)
+  // api.loadSource(async actions => {
+  //   try {
+  //     let opts = {
+  //       method: 'get',
+  //       url: `${process.env.GRIDSOME_API_URL}/profiles`,
+  //       headers: {
+  //         'Authorization': process.env.API_KEY
+  //       }
+  //     }
+  //     let profileData = await axios(opts)
 
-      const profilesCollection = actions.addCollection({
-        typeName: 'Profiles'
-      })
+  //     const profilesCollection = actions.addCollection({
+  //       typeName: 'Profiles'
+  //     })
 
-      profileData.forEach(el => profilesCollection.addNode(el))
+  //     profileData.forEach(el => profilesCollection.addNode(el))
 
-    } catch (err) {
-      console.error("Failed to fetch profiles:", err)
-    }
-  })
+  //   } catch (err) {
+  //     console.error("Failed to fetch profiles:", err)
+  //   }
+  // })
 
   api.createPages(({ createPage }) => {
     // Use the Pages API here: https://gridsome.org/docs/pages-api/
