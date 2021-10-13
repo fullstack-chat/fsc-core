@@ -11,6 +11,11 @@
           <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" href="https://discord.gg/vM2bagU">
             Join Learn Build Teach
           </a>
+					<p class="pt-5">Connect with the Mods:</p>
+					<ul>
+						<li>• Max Diamond <a href="https://twitter.com/Dmdboi">(@dmdboi)</a></li>
+						<li>• SchwabTheDeck <a href="https://twitter.com/SchwabTheDeck">(@SchwabTheDeck)</a></li>
+					</ul>
         </div>
 
       </div>
