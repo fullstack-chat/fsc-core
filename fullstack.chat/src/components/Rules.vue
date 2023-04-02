@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     goToDiscord: function () {
-      window.location = "https://discord.gg/AptKHUS"
+      window.location = "https://discord.gg/NsD4knqTee"
     }
   }
 }
