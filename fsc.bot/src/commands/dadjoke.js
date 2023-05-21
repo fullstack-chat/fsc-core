@@ -11,7 +11,7 @@ const helpText = `
 
 module.exports = {
   command: 'joke',
-  isEnabled: false,
+  isEnabled: true,
   helpText,
   fn: async msg => {
     let res = await axios.get("https://icanhazdadjoke.com/", {
