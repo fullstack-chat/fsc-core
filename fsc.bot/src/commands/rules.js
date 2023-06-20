@@ -5,9 +5,9 @@ const helpText = `
 
 module.exports = {
   command: "rules",
-  isEnabled: false,
+  isEnabled: true,
   helpText,
-  shouldCleanup: true,
+  shouldCleanup: false,
   fn: async msg => {
     const rules = [
         "Rule #3: do not take any kind of child care advice from Diamond."
