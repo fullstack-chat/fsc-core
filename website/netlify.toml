@@ -1,8 +1,8 @@
 [build]
   base = "/website"
-  publish = "/dist"
+  publish = "/public"
   command = "npm run build"
   functions = "/functions"
 
 [context.production]
-  publish = "/dist"
+  publish = "/public"
