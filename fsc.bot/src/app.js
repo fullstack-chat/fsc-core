@@ -92,6 +92,8 @@ client.on("message", async (message) => {
   }
 });
 
+client.on("guildMemberAdd")
+
 client.login(process.env.BOT_TOKEN);
 
 // Setup scheduled scripts

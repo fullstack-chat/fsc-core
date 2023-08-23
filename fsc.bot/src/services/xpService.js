@@ -13,11 +13,8 @@ let _faunaService;
 let collectionName = "fsc-bot-data"
 let indexName = "idxByKey"
 let faunaRecordId;
-let faunaData = {}
 
 exports.init = async function () {
-  // data = await tableService.fetch(rowKey, data);
-
   try {
     _faunaService = new FaunaService(process.env.FAUNA_SECRET);
     let record = await _faunaService.getRecordByIndex(indexName, rowKey);
@@ -29,10 +26,7 @@ exports.init = async function () {
 }
 
 const save = async function () {
-  // await tableService.save(rowKey, data);
-
   try {
-    // faunaData = data;
     await _faunaService.updateRecord(collectionName, faunaRecordId, {
       document: data
     })
@@ -168,6 +162,15 @@ const getLevelByXp = function (xp) {
 exports.getXpByLevel = function (level) {
   return Math.ceil(Math.pow(level / levelUpConst, 2))
 }
+
+// new logic:
+// if the user hasnt messaged in 14 days, start counting penalties
+// every 24 hours, doc 10% of xp until day 24, then set to 0
+// if user has 0 xp for 7 days, kick and send message
+
+// separate process
+// on user join, create a record and set a penalty period
+// after 30 days, if they havent reached level 5, kick with message
 
 /**
  * Scans all users and determines if they should lose XP based on activity.
