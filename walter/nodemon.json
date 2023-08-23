@@ -1,0 +1,7 @@
+{
+  "exec": "tsc --build&&node dist/main.js",
+  "ext": "*.ts",
+  "watch": [
+    "src/**/*"
+  ]
+}
