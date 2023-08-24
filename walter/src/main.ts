@@ -2,11 +2,12 @@
 import * as dotenv from 'dotenv'
 dotenv.config();
 
-import { Client, Events, GatewayIntentBits }  from 'discord.js'
-import { CommandManager } from './models';
+import { Client, Collection, Events, GatewayIntentBits }  from 'discord.js'
+import { CommandManager } from './managers/command_manager';
 
 // Commands
 import { dadJoke } from './commands/dadjoke'
+import XpManager from './managers/xp_manager';
 
 const client = new Client({
   intents: [
@@ -24,13 +25,17 @@ const client = new Client({
 const { logger: log } = require('./logger')
 
 let commandManager = new CommandManager(log)
+let xpManager: XpManager
 const prefix = process.env.PREFIX || "!w"
 
 client.on("ready", async () => {
   try {
-    // if (process.env.IS_XP_ENABLED) {
-    //   await xpService.init()
-    // }
+    if (process.env.IS_XP_ENABLED) {
+      xpManager = new XpManager(log)
+      await xpManager.init();
+    }
+
+    // Register commands
     commandManager.registerCommand(dadJoke)
 
     log.info('Registered commands are:\n')
@@ -42,7 +47,7 @@ client.on("ready", async () => {
   log.info(`${client?.user?.username} is ready!`)
 });
 
-client.on("error", (e) => {
+client.on("error", (e: any) => {
   log.info(`${client?.user?.username} borked: ${e}`);
 });
 
@@ -55,9 +60,9 @@ client.on(Events.MessageCreate, async (message) => {
     return;
   }
 
-  // if(process.env.IS_XP_ENABLED) {
-  //   xpService.logXp(message, message.author.id, message.author.username)
-  // }
+  if(xpManager) {
+    xpManager.logXp(message, message.author.id, message.author.username)
+  }
 
   if(message.content.startsWith(prefix)) {
     await commandManager.handleMessage(message)
