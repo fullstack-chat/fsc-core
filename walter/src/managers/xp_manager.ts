@@ -1,36 +1,39 @@
-import { Logger } from 'winston'
-import XpRecord from '../models/xp_record';
-import { getDb } from '../db'
-import { userXp, users } from 'db';
-import { sql } from 'drizzle-orm';
+import { Logger } from "winston";
+import XpRecord from "../models/xp_record";
+import { getDb } from "../db";
+import { users } from "db";
+import { sql } from "drizzle-orm";
 
 export default class XpManager {
-  data: {[key: string]: XpRecord} = {}
-  log: Logger
+  data: { [key: string]: XpRecord } = {};
+  log: Logger;
 
   // Constants
-  private twentyFourHoursInMs = 86400000
+  private twentyFourHoursInMs = 86400000;
   private fiveMinInMs = 300000;
   private levelUpConst = 0.4;
 
   constructor(logger: Logger) {
-    this.log = logger
+    this.log = logger;
   }
 
   async init() {
     const db = getDb();
     let records = await db.query.userXp.findMany({
       with: {
-        user: true
-      }
-    })
-    records.forEach(r => this.data[r.user_id.toString()] = new XpRecord({
-      lastAppliedTimestamp: r.last_applied_time || 0, 
-      currentXp: r.current_xp || 0, 
-      multiplier: r.multiplier || 0, 
-      username: r.user.username || "", 
-      penaltyCount: r.pentalty_count || 0
-    }));
+        user: true,
+      },
+    });
+    records.forEach(
+      (r: any) =>
+        (this.data[r.user_id.toString()] = new XpRecord({
+          lastAppliedTimestamp: r.last_applied_time || 0,
+          currentXp: r.current_xp || 0,
+          multiplier: r.multiplier || 0,
+          username: r.user.username || "",
+          penaltyCount: r.pentalty_count || 0,
+        }))
+    );
   }
 
   async saveUser(userId: string, user: XpRecord, isNew: boolean, username: string) {
@@ -42,129 +45,128 @@ export default class XpManager {
         last_applied_time = ${user.lastAppliedTimestamp}, 
         current_xp = ${user.currentXp}, 
         multiplier = ${user.multiplier}, 
-        pentalty_count = ${user.penaltyCount};`)
-    this.data[userId] = user
+        pentalty_count = ${user.penaltyCount};`);
+    this.data[userId] = user;
 
-    if(isNew) {
+    if (isNew) {
       await db.insert(users).values({
         id: BigInt(userId),
-        username
-      })
+        username,
+      });
     }
   }
-  
 
   getXpForUserId(userId: string) {
-    if(this.data[userId]) return this.data[userId].currentXp
+    if (this.data[userId]) return this.data[userId].currentXp;
   }
 
   getLevelForUserId(userId: string): number {
-    let currentXp = this.data[userId].currentXp
-    return this.getLevelByXp(currentXp)
+    let currentXp = this.data[userId].currentXp;
+    return this.getLevelByXp(currentXp);
   }
 
   async logXp(message: any, userId: string, username: string) {
-    this.log.info(`Logging message for ${username}`)
-    let currentTimestamp = Date.now()
-    let user = this.data[userId]
+    this.log.info(`Logging message for ${username}`);
+    let currentTimestamp = Date.now();
+    let user = this.data[userId];
     let isNew = false;
-    if(!user) {
-      this.log.info('User not found, creating new...')
+    if (!user) {
+      this.log.info("User not found, creating new...");
       isNew = true;
       user = new XpRecord({
-        lastAppliedTimestamp: currentTimestamp, 
-        currentXp: 0, 
-        multiplier: 1, 
-        username, 
-        penaltyCount: 0
+        lastAppliedTimestamp: currentTimestamp,
+        currentXp: 0,
+        multiplier: 1,
+        username,
+        penaltyCount: 0,
       });
     }
-  
+
     // Clear penalties
-    if(!user.penaltyCount || user.penaltyCount > 0) {
-      user.penaltyCount = 0
+    if (!user.penaltyCount || user.penaltyCount > 0) {
+      user.penaltyCount = 0;
     }
-  
+
     // Five min timeout
-    if(isNew || (currentTimestamp - user.lastAppliedTimestamp) > this.fiveMinInMs) {
+    if (isNew || currentTimestamp - user.lastAppliedTimestamp > this.fiveMinInMs) {
       // If its been longer than 24 hours since we heard from you, reset the multiplier
-      if ((currentTimestamp - user.lastAppliedTimestamp) > this.twentyFourHoursInMs) {
-        this.log.info('Multipler getting reset...')
-        user.multiplier = 1
-      } else if(user.lastAppliedTimestamp !== currentTimestamp && user.multiplier < 5) {
-        this.log.info('Bumping multiplier!!!')
-        user.multiplier++
+      if (currentTimestamp - user.lastAppliedTimestamp > this.twentyFourHoursInMs) {
+        this.log.info("Multipler getting reset...");
+        user.multiplier = 1;
+      } else if (user.lastAppliedTimestamp !== currentTimestamp && user.multiplier < 5) {
+        this.log.info("Bumping multiplier!!!");
+        user.multiplier++;
       } else {
-        this.log.info('Maxium multiplier detected, go go user!')
+        this.log.info("Maxium multiplier detected, go go user!");
       }
-      let newXp = user.currentXp + user.multiplier
-      this.log.info(`Adding XP, was ${user.currentXp}, now is ${newXp}`)
-  
+      let newXp = user.currentXp + user.multiplier;
+      this.log.info(`Adding XP, was ${user.currentXp}, now is ${newXp}`);
+
       // Actually apply the xp
-      let levelResults = this.processXpLevel(user.currentXp, newXp)
-      if(levelResults.isLeveledUp) {
-        message.channel.send(`🔼 **${username}** is now level **${levelResults.currentLevel}**!`)
+      let levelResults = this.processXpLevel(user.currentXp, newXp);
+      if (levelResults.isLeveledUp) {
+        message.channel.send(`🔼 **${username}** is now level **${levelResults.currentLevel}**!`);
       }
-  
+
       // Automatically assign the active role
-      if(levelResults.isTransitioningToActive) {
+      if (levelResults.isTransitioningToActive) {
         try {
-          await message.member.roles.add(process.env.ACTIVE_ROLE_ID)
+          await message.member.roles.add(process.env.ACTIVE_ROLE_ID);
           // let role = message.member.roles.cache.find(role => role.id === process.env.ACTIVE_ROLE_ID);
           // console.log(role)
           // if (role) {
           //   message.member.guild.roles.add(role);
           // }
         } catch (err) {
-          console.log(err)
-          this.log.error(err)
+          console.log(err);
+          this.log.error(err);
         }
       }
-  
-      user.currentXp = newXp
-      user.lastAppliedTimestamp = currentTimestamp
-  
-      await this.saveUser(userId, user, isNew, username)
+
+      user.currentXp = newXp;
+      user.lastAppliedTimestamp = currentTimestamp;
+
+      await this.saveUser(userId, user, isNew, username);
     } else {
-      this.log.info("5 min timeout not hit, ignoring...")
+      this.log.info("5 min timeout not hit, ignoring...");
     }
   }
 
-  private processXpLevel(previousXp: number, newXp: number): { isLeveledUp: boolean, currentLevel: number, isTransitioningToActive: boolean} {
+  private processXpLevel(previousXp: number, newXp: number): { isLeveledUp: boolean; currentLevel: number; isTransitioningToActive: boolean } {
     let isTransitioningToActive = false;
-    let oldLevel = this.getLevelByXp(previousXp)
-    let newLevel = this.getLevelByXp(newXp)
+    let oldLevel = this.getLevelByXp(previousXp);
+    let newLevel = this.getLevelByXp(newXp);
     let isLeveledUp = false;
-    if(newLevel > oldLevel) {
+    if (newLevel > oldLevel) {
       isLeveledUp = true;
-  
-      if(newLevel >= 5) {
+
+      if (newLevel >= 5) {
         isTransitioningToActive = true;
       }
     }
     return {
       isLeveledUp: isLeveledUp,
       currentLevel: newLevel,
-      isTransitioningToActive
-    }
+      isTransitioningToActive,
+    };
   }
 
   getUsersAtOrAboveXp(xp: number): string[] {
-    let users: string[] = []
+    let users: string[] = [];
     Object.keys(this.data).forEach(key => {
-      if(this.data[key].currentXp >= xp) {
-        users.push(this.data[key].username)
+      if (this.data[key].currentXp >= xp) {
+        users.push(this.data[key].username);
       }
-    })
-    return users
+    });
+    return users;
   }
 
   private getLevelByXp(xp: number): number {
-    return Math.floor(this.levelUpConst * Math.sqrt(xp))
+    return Math.floor(this.levelUpConst * Math.sqrt(xp));
   }
 
   private getXpByLevel(level: number): number {
-    return Math.ceil(Math.pow(level / this.levelUpConst, 2))
+    return Math.ceil(Math.pow(level / this.levelUpConst, 2));
   }
 }
 
@@ -213,8 +215,6 @@ export default class XpManager {
 //   let currentXp = data[userId].currentXp
 //   return getLevelByXp(currentXp)
 // }
-
-
 
 // const processXpLevel = function (previousXp, newXp) {
 //   let isTransitioningToActive = false;
@@ -337,4 +337,3 @@ export default class XpManager {
 
 //   return daysSinceContact === (penaltyCount + 3)
 // }
-
