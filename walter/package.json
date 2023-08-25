@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "@types/node": "^20.5.4",
+    "drizzle-kit": "^0.19.13",
     "nodemon": "^3.0.1",
     "typescript": "^5.1.6"
   },
@@ -12,7 +13,8 @@
     "build": "tsc --build",
     "clean": "rm -rf ./dist",
     "dev": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:push": "drizzle-kit push:mysql --config ./drizzle.config.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +22,6 @@
   "description": "",
   "dependencies": {
     "@planetscale/database": "^1.11.0",
-    "db": "file:../db",
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.28.5",

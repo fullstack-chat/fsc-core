@@ -1,7 +1,0 @@
-{
-  "exec": "tsc --build",
-  "ext": "*.ts",
-  "watch": [
-    "src/**/*"
-  ]
-}

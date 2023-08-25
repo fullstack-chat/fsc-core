@@ -1,7 +1,7 @@
 import { Logger } from "winston";
 import XpRecord from "../models/xp_record";
-import { getDb } from "../db";
-import { users } from "db";
+import { getDb } from "../db/db";
+import { users } from "../db/schema";
 import { sql } from "drizzle-orm";
 
 export default class XpManager {

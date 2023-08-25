@@ -4,11 +4,12 @@ WORKDIR /app
 
 COPY ./package*.json ./
 
-RUN npm ci
+RUN npm install
 
-COPY src/ ./
+COPY src/ ./src
 COPY .env ./
+COPY tsconfig.json ./
 
 RUN npm run build
 
-CMD [ "node", "dist/main.js" ]
+# CMD [ "node", "dist/main.js" ]

@@ -4,7 +4,7 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 export default {
-  schema: "./src/schema.ts",
+  schema: "./src/db/schema.ts",
   out: "./drizzle/generated",
   driver: "mysql2",
   dbCredentials: {
