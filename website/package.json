@@ -14,7 +14,8 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "deploy:prod": "netlify build&&netlify deploy --prod"
   },
   "dependencies": {
     "@netlify/functions": "^2.0.2",
