@@ -6,7 +6,7 @@ import { CommandManager } from "./managers/command_manager";
 import { sendModBroadcast } from "./security";
 import { logger as log } from "./logger";
 
-import { commandsList, registerSlashCommands } from "./managers/slash_manager";
+// import { commandsList, registerSlashCommands } from "./managers/slash_manager";
 
 // Commands
 import { dadJoke } from "./commands/dadjoke";
@@ -22,17 +22,17 @@ let commandManager = new CommandManager(log);
 let xpManager: XpManager;
 
 // Construct and prepare an instance of the REST module
-const rest = new REST().setToken(process.env.BOT_TOKEN!);
-(async () => {
-  try {
-    const slashCommands = await registerSlashCommands();
+// const rest = new REST().setToken(process.env.BOT_TOKEN!);
+// (async () => {
+//   try {
+//     const slashCommands = await registerSlashCommands();
 
-    await rest.put(Routes.applicationGuildCommands(process.env.APPLICATION_ID!, process.env.GUILD_ID!), { body: slashCommands.map(i => i.data) });
-    console.log(`Registered slash commands`, slashCommands);
-  } catch (error) {
-    console.error(error);
-  }
-})();
+//     await rest.put(Routes.applicationGuildCommands(process.env.APPLICATION_ID!, process.env.GUILD_ID!), { body: slashCommands.map(i => i.data) });
+//     console.log(`Registered slash commands`, slashCommands);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// })();
 
 const prefix = process.env.PREFIX || "!w";
 
@@ -67,28 +67,28 @@ client.on(Events.GuildMemberAdd, async member => {
 });
 
 /** Slash Commands */
-client.on(Events.InteractionCreate, async (interaction: Interaction) => {
-  if (!interaction.isChatInputCommand()) return;
+// client.on(Events.InteractionCreate, async (interaction: Interaction) => {
+//   if (!interaction.isChatInputCommand()) return;
 
-  // @ts-ignore
-  const command = commandsList.find(i => i.data.name === interaction.commandName);
+//   // @ts-ignore
+//   const command = commandsList.find(i => i.data.name === interaction.commandName);
 
-  if (!command) {
-    console.error(`No command matching ${interaction.commandName} was found.`);
-    return;
-  }
+//   if (!command) {
+//     console.error(`No command matching ${interaction.commandName} was found.`);
+//     return;
+//   }
 
-  try {
-    await command.execute(interaction);
-  } catch (error) {
-    console.error(error);
-    if (interaction.replied || interaction.deferred) {
-      await interaction.followUp({ content: "There was an error while executing this command!", ephemeral: true });
-    } else {
-      await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
-    }
-  }
-});
+//   try {
+//     await command.execute(interaction);
+//   } catch (error) {
+//     console.error(error);
+//     if (interaction.replied || interaction.deferred) {
+//       await interaction.followUp({ content: "There was an error while executing this command!", ephemeral: true });
+//     } else {
+//       await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
+//     }
+//   }
+// });
 
 client.on(Events.MessageCreate, async message => {
   if (message.author.bot) {
