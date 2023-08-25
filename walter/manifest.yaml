@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fsc-bot
+  labels:
+    name: fsc-bot
+spec:
+  containers:
+    - name: fsc-bot
+      image: localhost:32000/fsc-bot
