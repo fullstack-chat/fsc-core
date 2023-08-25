@@ -1,6 +1,6 @@
 import { connect } from '@planetscale/database'
 import { PlanetScaleDatabase, drizzle } from 'drizzle-orm/planetscale-serverless'
-import * as schema from 'db'
+import * as schema from './schema'
 
 export function getDb(): PlanetScaleDatabase<typeof schema> {
   const config = {
