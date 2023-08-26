@@ -15,7 +15,7 @@ function IndexPage() {
 	}
 
 	return (
-		<main>
+		<main className="scroll-smooth motion-reduce:scroll-auto">
 			<Navbar />
 			<div className="container mx-auto px-20 h-screen flex flex-wrap justify-center items-center">
 				<div className="w-full md:w-3/12">
@@ -39,7 +39,10 @@ function IndexPage() {
 			</div>
 
 			{/* <!-- Info Section --> */}
-			<section className="lg:py-24 lg:flex lg:justify-center">
+			<section
+				id="about"
+				className="lg:py-24 lg:flex lg:justify-center scroll-ms-10"
+			>
 				<div className="bg-gray-900 py-16 lg:mx-8 lg:flex lg:max-w-5xl lg:shadow-lg lg:rounded-lg">
 					<div className=" md:w-1/2 px-16 justify-center items-center order-last md:order-first flex flex-col">
 						<ChatBubble username="noobmaster70" imgPath="avatars/1.png">
@@ -53,10 +56,7 @@ function IndexPage() {
 						</ChatBubble>
 					</div>
 
-					<div
-						id="about"
-						className="max-w-xl px-6 lg:max-w-5xl md:w-1/2 order-first md:order-last"
-					>
+					<div className="max-w-xl px-6 lg:max-w-5xl md:w-1/2 order-first md:order-last">
 						<h2 className="font-bold text-white md:text-3xl pt-0">
 							😊 A Friendly Place for Experts &{' '}
 							<span style={{ color: '#4FB0FF' }}>Beginners</span>
@@ -71,7 +71,10 @@ function IndexPage() {
 			</section>
 
 			{/* <!-- Rules Section --> */}
-			<div className="container mx-auto px-4 lg:px-20 justify-center items-center pt-12 flex text-white">
+			<div
+				id="rules"
+				className="container mx-auto px-4 lg:px-20 justify-center items-center pt-12 flex text-white scroll-ms-10"
+			>
 				<div className="flex flex-col w-full md:w-1/2">
 					<h3 className="section-header centered-header">💬 Come Say Hello!</h3>
 					<div className="rules">
