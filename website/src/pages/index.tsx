@@ -164,7 +164,6 @@ function IndexPage() {
 							</button>
 						</div>
 					</div>
-					nN
 				</div>
 			</div>
 		</main>
