@@ -6,33 +6,27 @@ import { CommandManager } from "./managers/command_manager";
 import { sendModBroadcast } from "./security";
 import { logger as log } from "./logger";
 
-// import { commandsList, registerSlashCommands } from "./managers/slash_manager";
-
 // Commands
 import { dadJoke } from "./commands/dadjoke";
 import { xp } from "./commands/xp";
+import { xp as xpSlash } from "./slash/xp"
 import XpManager from "./managers/xp_manager";
 import { registerService } from "./container";
+import SlashCommandManager from "./managers/slash_manager";
 
 const client = new Client({
-  intents: [GatewayIntentBits.DirectMessages, GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildModeration],
+  intents: [
+    GatewayIntentBits.DirectMessages, 
+    GatewayIntentBits.Guilds, 
+    GatewayIntentBits.GuildMessages, 
+    GatewayIntentBits.MessageContent, 
+    GatewayIntentBits.GuildModeration
+  ],
 });
 
 let commandManager = new CommandManager(log);
+let slashCommandManager = new SlashCommandManager(log);
 let xpManager: XpManager;
-
-// Construct and prepare an instance of the REST module
-// const rest = new REST().setToken(process.env.BOT_TOKEN!);
-// (async () => {
-//   try {
-//     const slashCommands = await registerSlashCommands();
-
-//     await rest.put(Routes.applicationGuildCommands(process.env.APPLICATION_ID!, process.env.GUILD_ID!), { body: slashCommands.map(i => i.data) });
-//     console.log(`Registered slash commands`, slashCommands);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// })();
 
 const prefix = process.env.PREFIX || "!w";
 
@@ -45,9 +39,12 @@ client.on(Events.ClientReady, async () => {
       registerService(xpManager);
     }
 
-    // Register commands
+    // Register standard commands
     commandManager.registerCommand(dadJoke);
-    commandManager.registerCommand(xp);
+
+    // Register slash commands
+    slashCommandManager.addCommand(xpSlash)
+    slashCommandManager.registerCommands();
 
     log.info("Registered commands are:\n");
     Object.keys(commandManager.commands).forEach(c => log.info(c));
@@ -67,29 +64,13 @@ client.on(Events.GuildMemberAdd, async member => {
 });
 
 /** Slash Commands */
-// client.on(Events.InteractionCreate, async (interaction: Interaction) => {
-//   if (!interaction.isChatInputCommand()) return;
+client.on(Events.InteractionCreate, async (interaction: Interaction) => {
+  if (!interaction.isChatInputCommand()) return;
 
-//   // @ts-ignore
-//   const command = commandsList.find(i => i.data.name === interaction.commandName);
+  await slashCommandManager.handleCommand(interaction)
+});
 
-//   if (!command) {
-//     console.error(`No command matching ${interaction.commandName} was found.`);
-//     return;
-//   }
-
-//   try {
-//     await command.execute(interaction);
-//   } catch (error) {
-//     console.error(error);
-//     if (interaction.replied || interaction.deferred) {
-//       await interaction.followUp({ content: "There was an error while executing this command!", ephemeral: true });
-//     } else {
-//       await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
-//     }
-//   }
-// });
-
+// Standard messages
 client.on(Events.MessageCreate, async message => {
   if (message.author.bot) {
     return;
