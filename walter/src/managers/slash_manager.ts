@@ -1,25 +1,58 @@
-import { join } from "path";
-import { readdirSync } from "fs";
+import { ChatInputCommandInteraction, Interaction, REST, Routes } from "discord.js";
+import SlashCommand from "../models/slash_command";
+import { Logger } from "winston";
 
-export const commandsList: any[] = [];
-const commandsPath = join(__dirname, "../slash");
-const commandFiles = readdirSync(commandsPath).filter(file => file.endsWith(".js"));
+export default class SlashCommandManager {
+  log: Logger
+  rest: REST
+  commands: {[key: string]: SlashCommand} = {}
 
-async function registerSlashCommands() {
-  for (const file of commandFiles) {
-    const filePath = join(commandsPath, file);
+  constructor(log: Logger) {
+    this.log = log
+    // TODO: use token & app id in ctor
+    this.rest = new REST().setToken(process.env.BOT_TOKEN!);
+  }
 
-    const command = require(filePath);
+  async addCommand(command: SlashCommand) {
+    this.commands[command.builder.name] = command
+  }
 
-    // Set a new item in the Collection with the key as the command name and the value as the exported module
-    if ("data" in command.default && "execute" in command.default) {
-      commandsList.push({ data: command.default.data.toJSON(), execute: command.default.execute });
-    } else {
-      console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+  async registerCommands() {
+    const registerCommandsBody = Object.keys(this.commands)
+      .map((k: string) => this.commands[k].builder.toJSON())
+
+    await this.rest.put(
+      Routes.applicationGuildCommands(process.env.APPLICATION_ID!, process.env.GUILD_ID!), 
+      { 
+        body: registerCommandsBody
+      }
+    );
+  }
+
+  async handleCommand(interaction: ChatInputCommandInteraction) {
+    const command = this.commands[interaction.commandName]
+
+    if (!command) {
+      this.log.error(`No command matching ${interaction.commandName} was found.`);
+      return;
+    }
+  
+    try {
+      await command.execute(interaction);
+    } catch (error) {
+      this.log.error(error);
+      if (interaction.replied || interaction.deferred) {
+        await interaction.followUp({ 
+          content: "There was an error while executing this command!", 
+          ephemeral: true 
+        });
+      } else {
+        await interaction.reply({ 
+          content: "There was an error while executing this command!", 
+          ephemeral: true 
+        });
+      }
     }
   }
 
-  return commandsList;
 }
-
-export { registerSlashCommands };
