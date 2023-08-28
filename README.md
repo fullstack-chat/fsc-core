@@ -12,17 +12,17 @@ You DO NOT need to have actively shipped a product in order to join, even those 
 
 Our mission is to be the #1 resource for developers who are building or shipping their own products with the goal of generating revenue to improve their lives and the lives of those around them.
 
-We operate on 3 key principals:
+We operate on 3 key principles:
 
 - **Authenticity and integrity** &mdash; Members are expected to be honest and authentic at all times.
 - **Kindness and openness** &mdash; With honesty, be respectfully nice. We all come from different walks of life and members should welcome others with open arms.
 - **Willing altruism** &mdash; We're all here with a common goal. Be willing to lift others up, a high tide raises all boats.
 
-All members are expected to adhere to these principals. Failure to do so will result in being banned from the community to protect other members.
+All members are expected to adhere to these principles. Failure to do so will result in being banned from the community to protect other members.
 
 ### What we're not
 
-While we are very open to new members, there are certain scenarios where the fullstack.chat. One thing our community is NOT is a Discord to learn software development or those who are looking for a traditional job in software.
+While we are very open to new members, there are certain scenarios where the fullstack.chat community may not align with your goals. One thing our community is NOT is a Discord to learn software development or those who are looking for a traditional job in software.
 
 **If you fit this description, you will still be welcome to join in the conversations, but there may be better options for you and your goals.**
 
