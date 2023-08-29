@@ -14,7 +14,7 @@ function IndexPage() {
   }
 
   return (
-    <main>
+    <main className="home">
       <div className="container mx-auto px-20 h-screen flex flex-wrap justify-center items-center">
         <div className="w-full md:w-3/12" >
           {/* <!-- Shown on small screens --> */}

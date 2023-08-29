@@ -3,3 +3,5 @@ site/.netlify/functions
 .vscode/settings.json
 .env
 .env.*
+dist
+.build

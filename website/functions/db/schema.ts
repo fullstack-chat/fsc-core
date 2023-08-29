@@ -34,12 +34,19 @@ export const spaces = mysqlTable('spaces', {
   space_url: varchar('space_url', { length: 300 })
 })
 
-export const useXpRelations = relations(userXp, ({ one }) => ({
+export const user_userXpRelations = relations(userXp, ({ one }) => ({
   user: one(users, {
     fields: [userXp.user_id],
     references: [users.id]
   })
 }));
+
+export const userXp_userRelations = relations(users, ({ one }) => ({
+  userXp: one(userXp, {
+    fields: [users.id],
+    references: [userXp.user_id]
+  })
+}))
 
 // export const usersRelations = relations(users, ({ many }) => ({
 //   blocks: many(blocks)

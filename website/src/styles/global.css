@@ -26,7 +26,7 @@ h3 {
   @apply text-2xl pb-1 mb-2 !important;
 }
 
-h1, h2, .section-header {
+.home h1,.home h2, .home .section-header {
   display: inline-block;
   font-family: 'Lato', monospace;
   color: white;
@@ -36,14 +36,14 @@ h1, h2, .section-header {
   border-bottom: 2px solid #FF8500;
 }
 
-.layout {
+.home .layout {
   max-width: 760px;
   margin: 0 auto;
   padding-left: 20px;
   padding-right: 20px;
 }
 
-.header {
+.home .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -51,58 +51,54 @@ h1, h2, .section-header {
   height: 80px;
 }
 
-.nav__link {
-  margin-left: 20px;
-}
-
-.footer {
+.home .footer {
   display: flex;
   justify-content: center;
   align-content: center;
   padding-top: 20px;
 }
 
-.copyright-and-docs {
+.home .copyright-and-docs {
   color: white;
 }
 
-.copyright-and-docs a {
+.home .copyright-and-docs a {
   margin-left: 5px;
 }
 
 /* index */
 
-a {
+.home a {
 	color: white !important;
 	border-bottom: 2px solid #00a8e8;
 }
 
-a:hover {
+.home a:hover {
 	text-decoration: none !important;
 	border-bottom: 2px solid #003459;
 }
 
-.section-link {
+.home .section-link {
 	margin-right: 10px;
 }
 
-.logo {
+.home .logo {
 	max-width: 250px;
 	display: block;
 }
 
-.logo-sm-screen {
+.home .logo-sm-screen {
 	align-content: right;
   /* margin: 20px auto; * */
 	margin: 0px auto;
 	display: block;
 }
 
-.full-height-row {
+.home .full-height-row {
 	height: 100vh;
 }
 
-.activity-container {
+.home .activity-container {
 	color: white;
 	border: 2px solid #003459;
 	background-color: rgba(0, 52, 89, 0.6);
@@ -112,58 +108,58 @@ a:hover {
 	height: 90%;
 }
 
-.container-wrapper {
+.home .container-wrapper {
 	min-height: 100%;
 	min-height: 100vh;
 	display: flex;
 	align-items: center;
 }
 
-h1, h2, h3, h4, h5, h6 {
+.home h1, .home h2, .home h3, .home h4, .home h5, .home h6 {
 	display: inline-block;
 }
 
-h3 {
+.home h3 {
 	color: white;
 }
 
-code {
+.home code {
 	background-color: rgba(0, 52, 89, 0.6);
 	border-radius: 5px;
 	padding: 0px 2px;
 	color: #FF8500 !important;
 }
 
-.centered-header {
+.home .centered-header {
 	text-align: center;
 }
 
-.section {
+.home .section {
 	min-height: 550px;
 }
 
-.welcome-col {
+.home .welcome-col {
 	display: flex;
 	flex-direction: row;
 }
 
-.welcome-content {
+.home .welcome-content {
 	padding: 0px 20px;
 	margin-top: auto;
 	margin-bottom: auto;
 }
 
-.welcome-text {
+.home .welcome-text {
 	color: white;
 	font-size: 22px;
 	margin-bottom: 20px;
 }
 
-.small-screen-spacer {
+.home .small-screen-spacer {
 	height: 200px;
 }
 
-.agree-to-rules-check {
+.home .agree-to-rules-check {
 	padding-right: 10px;
 }
 
