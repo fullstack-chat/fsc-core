@@ -15,7 +15,9 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
-    "deploy:prod": "netlify build&&netlify deploy --prod"
+    "deploy:prod": "netlify build&&netlify deploy --prod",
+    "db:push": "drizzle-kit push:mysql --config ./drizzle.config.ts",
+    "db:generate": "drizzle-kit generate:mysql --config ./drizzle.config.ts"
   },
   "dependencies": {
     "@netlify/functions": "^2.0.2",

@@ -6,6 +6,13 @@ export const users = mysqlTable('users', {
   username: varchar('username', { length: 120 }),
   tagline: varchar('tagline', { length: 250 }),
   img_url: varchar('img_url', { length: 500 }),
+  website_url: varchar('website_url', { length: 500 }),
+  twitter_url: varchar('twitter_url', { length: 500 }),
+  facebook_url: varchar('facebook_url', { length: 500 }),
+  instagram_url: varchar('instagram_url', { length: 500 }),
+  twitch_url: varchar('twitch_url', { length: 500 }),
+  threads_url: varchar('threads_url', { length: 500 }),
+  is_public: boolean('is_public'),
 })
 
 export const userLinks = mysqlTable('user_links', {

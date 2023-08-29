@@ -4,6 +4,8 @@ export type ValidateAuthResults = {
   isAuthorized?: boolean
   isMod?: boolean
   userId?: string
+  username?: string
+  img_url?: string
 }
 
 function parseCookies(event: HandlerEvent): {[key: string]: string} {
@@ -35,6 +37,12 @@ export async function validateAuth(event: HandlerEvent): Promise<ValidateAuthRes
       });
       let json = await res.json();
       results.userId = json.id
+      results.img_url = `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.png`
+      if(json.global_name) {
+        results.username = json.global_name
+      } else {
+        results.username = json.username
+      }
       results.isAuthorized = true
     }
   } catch (err) {
