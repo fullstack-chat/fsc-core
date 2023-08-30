@@ -8,8 +8,9 @@ import { logger as log } from "./logger";
 
 // Commands
 import { dadJoke } from "./commands/dadjoke";
-import { xp } from "./commands/xp";
-import { xp as xpSlash } from "./slash/xp"
+import { xp } from "./slash/xp"
+import { help } from "./slash/help"
+import { joke } from "./slash/dadjoke"
 import XpManager from "./managers/xp_manager";
 import { registerService } from "./container";
 import SlashCommandManager from "./managers/slash_manager";
@@ -44,7 +45,9 @@ client.on(Events.ClientReady, async () => {
     commandManager.registerCommand(dadJoke);
 
     // Register slash commands
-    slashCommandManager.addCommand(xpSlash)
+    slashCommandManager.addCommand(xp)
+    slashCommandManager.addCommand(help);
+    slashCommandManager.addCommand(joke);
     slashCommandManager.registerCommands();
 
     log.info("Registered commands are:\n");

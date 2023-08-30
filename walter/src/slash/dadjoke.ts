@@ -6,11 +6,11 @@ const helpText = `
   Description: So funny, much laughing, wow...
   Subcommands: none
   Examples:
-    - Input: !w joke
-      Output: @brianmmdev You are level 15 with 1445xp
+    - Input: /joke
+      Output: Why did the chicken cross the road?
 `
 
-export const xp: SlashCommand = {
+export const joke: SlashCommand = {
   name: "joke",
   helpText,
   builder: new SlashCommandBuilder()

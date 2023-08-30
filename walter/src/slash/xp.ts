@@ -8,12 +8,12 @@ const helpText = `
   Description: The 'xp' command can be used to fetch the users current Xp.
   Subcommands: none
   Examples:
-    - Input: !fsc xp
+    - Input: /xp
       Output: @brianmmdev You are level 15 with 1445xp
 `
 
 export const xp: SlashCommand = {
-  name: "help",
+  name: "xp",
   helpText,
   builder: new SlashCommandBuilder()
     .setName("xp")
