@@ -37,6 +37,7 @@ client.on(Events.ClientReady, async () => {
       await xpManager.init();
 
       registerService(xpManager);
+      registerService(slashCommandManager)
     }
 
     // Register standard commands
