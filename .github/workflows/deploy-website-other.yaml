@@ -3,6 +3,8 @@ name: Deploy prod
 on:
   workflow_dispatch:
   pull_request:
+    paths:
+      - website/**.*
 
 jobs:
   deploy:
