@@ -45,9 +45,9 @@ function Navbar() {
 					<li>
 						<Link to="#rules" onClick={() => setIsMenuShown(false)}>Join Us</Link>
 					</li>
-					<li>
+					{/* <li>
 						<Link to="/login" onClick={() => setIsMenuShown(false)}>Login</Link>
-					</li>
+					</li> */}
 				</div>
 			</ul>
 		</nav>
