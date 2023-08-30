@@ -26,7 +26,7 @@ jobs:
         run: |
           cd website
           netlify build
-          ls
+          ls /home/runner/work/fsc-core/fsc-core/public
           netlify deploy --alias ${{ steps.extract_branch.outputs.branch }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
