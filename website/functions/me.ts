@@ -12,6 +12,8 @@ exports.handler = async (event: HandlerEvent, context: HandlerContext) => {
     }
   }
 
+  console.log(auth)
+
   if(event.httpMethod === "GET") {
     return await get(event, context, auth)
   }

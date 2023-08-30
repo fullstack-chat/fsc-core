@@ -36,6 +36,9 @@ export async function validateAuth(event: HandlerEvent): Promise<ValidateAuthRes
         }
       });
       let json = await res.json();
+      if(res.status !== 200) {
+        return results
+      }
       results.userId = json.id
       results.img_url = `https://cdn.discordapp.com/avatars/${json.id}/${json.avatar}.png`
       if(json.global_name) {

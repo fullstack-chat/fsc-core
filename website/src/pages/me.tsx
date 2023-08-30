@@ -4,6 +4,7 @@ import Layout from '../layout'
 import Loading from '../components/Loading'
 import Checkbox from '../components/Checkbox'
 import { FaSave } from 'react-icons/fa'
+import { navigate } from 'gatsby'
 
 function Me() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -24,6 +25,9 @@ function Me() {
   useEffect(() => {
     async function init() {
       let res = await fetch("/.netlify/functions/me")
+      if(res.status !== 200) {
+        navigate("/")
+      }
       let json = await res.json()
       setUsername(json.username)
       setXp(json.userXp.current_xp)

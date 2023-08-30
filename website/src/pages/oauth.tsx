@@ -1,5 +1,6 @@
 import { navigate } from 'gatsby'
 import React, { useEffect } from 'react'
+import Loading from '../components/Loading'
 
 type TokenResponse = {
   access_token: string
@@ -58,14 +59,7 @@ function OAuthHandler() {
       expiry.setTime(Date.now() + (json.expires_in * 1000))
       document.cookie = `discord_token=${json.access_token};expires=${expiry.toUTCString()}; path=/`
 
-      // let nextState = localStorage.getItem("nextState")
-      // if(nextState && !nextState.startsWith("/oauth")) {
-      //   nextState = decodeURIComponent(nextState)
-      //   localStorage.removeItem("nextState")
-      //   navigate(nextState)
-      // } else {
-      //   navigate("/")
-      // }
+      navigate("/me")
     }
 
     try {
@@ -77,7 +71,7 @@ function OAuthHandler() {
   }, [])
 
   return (
-    <div>OAuthHandler</div>
+    <Loading />
   )
 }
 
