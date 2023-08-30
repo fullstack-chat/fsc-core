@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
-// import mobileMenu from '../../static/mobile-menu.js';
-import { AiOutlineMenu } from '@react-icons/all-files/ai/AiOutlineMenu';
-import { AiOutlineClose } from '@react-icons/all-files/ai/AiOutlineClose';
+
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"
 
 function Navbar() {
 	const [isMenuShown, setIsMenuShown] = useState(false);
