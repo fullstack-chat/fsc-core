@@ -10,7 +10,6 @@ export const help: SlashCommand = {
     .setName("help")
     .setDescription("DMs a message to you with help on all available commands"),
   execute: async (interaction: ChatInputCommandInteraction) => {
-    await interaction.deferReply()
     const manager = getInstance(SlashCommandManager.name)
     const helpText = manager.getHelpText()
     await interaction.user.send(helpText)
