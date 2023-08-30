@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { FaCircleNotch } from 'react-icons/fa';
 import { useLocation } from '@reach/router';
+import Loading from '../../components/Loading';
 
 
 function SpacesPage() {
@@ -20,9 +21,7 @@ function SpacesPage() {
   }, [])
 
   return (
-    <div className="text-gray-200 m-8 flex items-center justify-center w-screen text-4xl">
-      <FaCircleNotch className="animate-spin"/>
-    </div>
+    <Loading />
   )
 }
 

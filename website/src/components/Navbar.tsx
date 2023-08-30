@@ -32,19 +32,22 @@ function Navbar() {
 			>
 				<div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg">
 					<li>
-						<Link to="/">Home</Link>
+						<Link to="/" onClick={() => setIsMenuShown(false)} >Home</Link>
 					</li>
 					<li>
-						<a href="https://blog.fullstack.chat/" target="_blank">
+						<a href="https://blog.fullstack.chat/" target="_blank" onClick={() => setIsMenuShown(false)}>
 							Blog
 						</a>
 					</li>
 					<li>
-						<Link to="#about">About</Link>
+						<Link to="#about" onClick={() => setIsMenuShown(false)}>About</Link>
 					</li>
 					<li>
-						<Link to="#rules">Join Us</Link>
+						<Link to="#rules" onClick={() => setIsMenuShown(false)}>Join Us</Link>
 					</li>
+					{/* <li>
+						<Link to="/login" onClick={() => setIsMenuShown(false)}>Login</Link>
+					</li> */}
 				</div>
 			</ul>
 		</nav>

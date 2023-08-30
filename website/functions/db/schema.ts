@@ -6,6 +6,12 @@ export const users = mysqlTable('users', {
   username: varchar('username', { length: 120 }),
   tagline: varchar('tagline', { length: 250 }),
   img_url: varchar('img_url', { length: 500 }),
+  website_url: varchar('website_url', { length: 500 }),
+  twitter_url: varchar('twitter_url', { length: 500 }),
+  facebook_url: varchar('facebook_url', { length: 500 }),
+  instagram_url: varchar('instagram_url', { length: 500 }),
+  twitch_url: varchar('twitch_url', { length: 500 }),
+  threads_url: varchar('threads_url', { length: 500 }),
 })
 
 export const userLinks = mysqlTable('user_links', {
@@ -34,12 +40,19 @@ export const spaces = mysqlTable('spaces', {
   space_url: varchar('space_url', { length: 300 })
 })
 
-export const useXpRelations = relations(userXp, ({ one }) => ({
+export const user_userXpRelations = relations(userXp, ({ one }) => ({
   user: one(users, {
     fields: [userXp.user_id],
     references: [users.id]
   })
 }));
+
+export const userXp_userRelations = relations(users, ({ one }) => ({
+  userXp: one(userXp, {
+    fields: [users.id],
+    references: [userXp.user_id]
+  })
+}))
 
 // export const usersRelations = relations(users, ({ many }) => ({
 //   blocks: many(blocks)
