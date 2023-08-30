@@ -28,7 +28,7 @@ function IndexPage() {
 					{/* <!-- Shown on large creens --> */}
 					{/* <!-- <g-image alt="fullstack.chat logo" src="/assets/images/logo-2.png" className="logo img-fluid d-none d-lg-block" /> --> */}
 				</div>
-				<div className="w-full md:w-6/12">
+				<div className="md:w-6/12">
 					<h1>👋 Welcome to fullstack.chat!</h1>
 					<div className="welcome-text">
 						We are a welcome and opening community of developers of all
