@@ -1,7 +1,9 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js"
 
 type SlashCommand = {
-  builder: SlashCommandBuilder,
+  name: string
+  helpText: string
+  builder: SlashCommandBuilder
   execute: (interaction: ChatInputCommandInteraction) => void
 }
 

@@ -55,4 +55,16 @@ export default class SlashCommandManager {
     }
   }
 
+  getHelpText(): string {
+    let helpResponse = "**Walter Help**\n'!w' is used to call Walter, followed by one of these commands:\n\n"
+    Object.keys(this.commands).forEach(c => {
+      if(this.commands[c].helpText) {
+        helpResponse += `**!w ${this.commands[c].name}:**`
+        helpResponse += '\n```yaml'
+        helpResponse += `${this.commands[c].helpText}\n`
+        helpResponse += '```\n'
+      }
+    })
+    return helpResponse
+  }
 }

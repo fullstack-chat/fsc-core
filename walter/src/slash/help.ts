@@ -2,6 +2,7 @@ import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 import { getInstance } from "../container";
 import XpManager from "../managers/xp_manager";
 import SlashCommand from "../models/slash_command";
+import SlashCommandManager from "../managers/slash_manager";
 
 const helpText = `
   Command: xp
@@ -13,21 +14,15 @@ const helpText = `
 `
 
 export const xp: SlashCommand = {
-  name: "help",
+  name: "xp",
   helpText,
   builder: new SlashCommandBuilder()
     .setName("xp")
     .setDescription("Returns your current XP and level"),
   execute: async (interaction: ChatInputCommandInteraction) => {
-    await interaction.deferReply();
-    
-    const xpManager = getInstance(XpManager.name)
-    let currentXp = xpManager.getXpForUserId(interaction.user.id)
-    if(currentXp) {
-      let currentLevel = xpManager.getLevelForUserId(interaction.user.id)
-      return interaction.editReply(`You are level ${currentLevel} with ${currentXp}xp!`)
-    } else {
-      return interaction.editReply("I cant find you :(")
-    }
+    await interaction.deferReply()
+    const manager = getInstance(SlashCommandManager.name)
+    const helpText = manager.getHelpText()
+    await interaction.user.send(helpText)
   },
 };
