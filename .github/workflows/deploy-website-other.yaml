@@ -25,8 +25,8 @@ jobs:
       - name: Deploy
         run: |
           cd website
-          netlify build
-          netlify deploy --alias ${{ steps.extract_branch.outputs.branch }}
+          ls
+          netlify build&&netlify deploy --alias ${{ steps.extract_branch.outputs.branch }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
