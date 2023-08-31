@@ -7,13 +7,14 @@ import { sendModBroadcast } from "./security";
 import { logger as log } from "./logger";
 
 // Commands
-import { dadJoke } from "./commands/dadjoke";
 import { xp } from "./slash/xp"
 import { help } from "./slash/help"
 import { joke } from "./slash/dadjoke"
 import XpManager from "./managers/xp_manager";
 import { registerService } from "./container";
 import SlashCommandManager from "./managers/slash_manager";
+import ScheduledJobManager from "./managers/scheduled_job_manager";
+import { helloWorldJob } from "./jobs/hello_world";
 
 const client = new Client({
   intents: [
@@ -25,24 +26,24 @@ const client = new Client({
   ],
 });
 
-let commandManager = new CommandManager(log);
-let slashCommandManager = new SlashCommandManager(log);
-let xpManager: XpManager;
+registerService(log, "logger")
 
-const prefix = process.env.PREFIX || "!w";
+let slashCommandManager = new SlashCommandManager(log);
+registerService(slashCommandManager)
+
+let xpManager: XpManager;
 
 client.on(Events.ClientReady, async () => {
   try {
     if (process.env.IS_XP_ENABLED) {
       xpManager = new XpManager(log);
       await xpManager.init();
-
       registerService(xpManager);
-      registerService(slashCommandManager)
     }
 
-    // Register standard commands
-    commandManager.registerCommand(dadJoke);
+    // Register scheduled jobs
+    let scheduler = new ScheduledJobManager()
+    scheduler.registerJob(helloWorldJob)
 
     // Register slash commands
     slashCommandManager.addCommand(xp)
@@ -50,8 +51,13 @@ client.on(Events.ClientReady, async () => {
     slashCommandManager.addCommand(joke);
     slashCommandManager.registerCommands();
 
-    log.info("Registered commands are:\n");
-    Object.keys(commandManager.commands).forEach(c => log.info(c));
+    log.info("=====")
+    log.info("Registered slash commands:");
+    Object.keys(slashCommandManager.commands).forEach(c => log.info(c));
+    log.info("=====")
+    log.info("Registered jobs:");
+    Object.keys(scheduler.jobs).forEach(c => log.info(`${c} (${scheduler.jobs[c].cron})`));
+
   } catch (err) {
     log.error("Init failed:", err);
   }
@@ -82,10 +88,6 @@ client.on(Events.MessageCreate, async message => {
 
   if (xpManager) {
     xpManager.logXp(message, message.author.id, message.author.username);
-  }
-
-  if (message.content.startsWith(prefix)) {
-    await commandManager.handleMessage(message);
   }
 });
 

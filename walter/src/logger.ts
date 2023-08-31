@@ -8,6 +8,8 @@ import { createLogger, format, transports } from 'winston'
 //   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 // });
 
+export const LoggerServiceName = "logger"
+
 export const logger = createLogger({
   level: 'info',
   format: format.json(),
