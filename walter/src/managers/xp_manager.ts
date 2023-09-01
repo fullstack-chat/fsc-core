@@ -161,6 +161,10 @@ export default class XpManager {
     return users;
   }
 
+  getLeaderboardUsers(): XpRecord[] {
+    return Object.values(this.data).sort((a, b) => b.currentXp - a.currentXp).splice(0, 10);
+  }
+
   private getLevelByXp(xp: number): number {
     return Math.floor(this.levelUpConst * Math.sqrt(xp));
   }

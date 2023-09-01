@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import { Client, Collection, Events, GatewayIntentBits, Interaction, REST, Routes } from "discord.js";
+import { Client, Events, GatewayIntentBits, Interaction } from "discord.js";
 import { CommandManager } from "./managers/command_manager";
 import { sendModBroadcast } from "./security";
 import { logger as log } from "./logger";
@@ -11,6 +11,8 @@ import { dadJoke } from "./commands/dadjoke";
 import { xp } from "./slash/xp"
 import { help } from "./slash/help"
 import { joke } from "./slash/dadjoke"
+import { leaderboard } from "./slash/leaderboard"
+
 import XpManager from "./managers/xp_manager";
 import { registerService } from "./container";
 import SlashCommandManager from "./managers/slash_manager";
@@ -48,6 +50,7 @@ client.on(Events.ClientReady, async () => {
     slashCommandManager.addCommand(xp)
     slashCommandManager.addCommand(help);
     slashCommandManager.addCommand(joke);
+    slashCommandManager.addCommand(leaderboard);
     slashCommandManager.registerCommands();
 
     log.info("Registered commands are:\n");
