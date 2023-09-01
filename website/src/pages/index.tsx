@@ -15,7 +15,7 @@ function IndexPage() {
 	}
 
 	return (
-		<main className="scroll-smooth motion-reduce:scroll-auto">
+		<main className="font-sans m-0 p-0 leading-normal bg-zinc-900 scroll-smooth motion-reduce:scroll-auto">
 			<Navbar />
 			<div className="container mx-auto px-20 h-screen flex flex-wrap justify-center items-center">
 				<div className="w-full md:w-3/12">

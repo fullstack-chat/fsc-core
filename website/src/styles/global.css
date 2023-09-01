@@ -2,72 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-  padding: 0px 0px 20px 0px;
-  line-height: 1.5;
-  background-color: #14161c !important;
-}
+/* Added Tailwind classes to <main> element in index.tsx */
+/* body {
+	font-family: 'Open Sans', sans-serif;
+	margin: 0;
+	padding: 0px 0px 20px 0px;
+	line-height: 1.5;
+	background-color: #14161c !important;
+} */
 
 p {
-  padding-bottom: 1rem !important;
+	padding-bottom: 1rem !important;
 }
 
 h1 {
-  @apply text-4xl pb-3 mb-2 !important;
+	@apply text-4xl pb-3 mb-2 !important;
 }
 
 h2 {
-  @apply text-2xl !important;
+	@apply text-2xl !important;
 }
 
 h3 {
-  @apply text-2xl pb-1 mb-2 !important;
+	@apply text-2xl pb-1 mb-2 !important;
 }
 
-h1, h2, .section-header {
-  display: inline-block;
-  font-family: 'Lato', monospace;
-  color: white;
-  margin: 0 auto 10px auto;
-  padding-top: 15px;
-  padding-bottom: 5px;;
-  border-bottom: 2px solid #FF8500;
+h1,
+h2,
+.section-header {
+	display: inline-block;
+	font-family: 'Lato', monospace;
+	color: white;
+	margin: 0 auto 10px auto;
+	padding-top: 15px;
+	padding-bottom: 5px;
+	border-bottom: 2px solid #ff8500;
 }
 
 .layout {
-  max-width: 760px;
-  margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
+	max-width: 760px;
+	margin: 0 auto;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  height: 80px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	height: 80px;
 }
 
 .nav__link {
-  margin-left: 20px;
+	margin-left: 20px;
 }
 
 .footer {
-  display: flex;
-  justify-content: center;
-  align-content: center;
-  padding-top: 20px;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	padding-top: 20px;
 }
 
 .copyright-and-docs {
-  color: white;
+	color: white;
 }
 
 .copyright-and-docs a {
-  margin-left: 5px;
+	margin-left: 5px;
 }
 
 /* index */
@@ -93,7 +96,7 @@ a:hover {
 
 .logo-sm-screen {
 	align-content: right;
-  /* margin: 20px auto; * */
+	/* margin: 20px auto; * */
 	margin: 0px auto;
 	display: block;
 }
@@ -119,7 +122,12 @@ a:hover {
 	align-items: center;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	display: inline-block;
 }
 
@@ -131,7 +139,7 @@ code {
 	background-color: rgba(0, 52, 89, 0.6);
 	border-radius: 5px;
 	padding: 0px 2px;
-	color: #FF8500 !important;
+	color: #ff8500 !important;
 }
 
 .centered-header {
@@ -170,62 +178,62 @@ code {
 /* ChatBubble.tsx */
 
 .chat-bubble {
-  display: flex;
-  background-color: #36393F;
-  color: white;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  width: 100%;
+	display: flex;
+	background-color: #36393f;
+	color: white;
+	border-radius: 5px;
+	margin-bottom: 5px;
+	width: 100%;
 }
 
 .chat-bubble .avatar {
-  background-color: white;
-  border-radius: 100%;
-  height: 50px;
-  width: 50px;
-  padding: 10px;
-  margin: 5px;
+	background-color: white;
+	border-radius: 100%;
+	height: 50px;
+	width: 50px;
+	padding: 10px;
+	margin: 5px;
 }
 
 .chat-bubble .text-area {
-  font-size: 14px
+	font-size: 14px;
 }
 
 .chat-bubble .username {
-  padding-top: 1px;
-  font-weight: bold;
+	padding-top: 1px;
+	font-weight: bold;
 }
 
 .chat-bubble .text-area .text {
-  margin-top: -1px;
-  line-height: 16px;
+	margin-top: -1px;
+	line-height: 16px;
 }
 
 /* rules section */
 .rules .rules-intro {
-  color: white;
-  margin: 10px 0px 20px 0px;
+	color: white;
+	margin: 10px 0px 20px 0px;
 }
 
 .rules .rules-container {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 15px;
-  padding: 20px;
-  margin: 10px auto;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.6);
+	border-radius: 15px;
+	padding: 20px;
+	margin: 10px auto;
 }
 
 .rules .agree-to-rules-check {
-  color: white;
-  margin: 10px 0px;
+	color: white;
+	margin: 10px 0px;
 }
 
 .rules .agree-to-rules-button {
-  background-color: #00A8E8 !important;
-  color: white !important;
+	background-color: #00a8e8 !important;
+	color: white !important;
 }
 
 .rules .agree-to-rules-button-disabled {
-  background-color: #3d6371 !important;
-  cursor: not-allowed;
+	background-color: #3d6371 !important;
+	cursor: not-allowed;
 }
