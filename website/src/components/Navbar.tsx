@@ -7,7 +7,7 @@ import { AiOutlineClose } from '@react-icons/all-files/ai/AiOutlineClose';
 function Navbar() {
 	const [isMenuShown, setIsMenuShown] = useState(false);
 	return (
-		<nav className="navbar-container flex justify-end container py-4 px-4">
+		<nav className="flex justify-end container p-4">
 			{!isMenuShown && (
 				<button
 					className="md:hidden text-white text-3xl"
@@ -31,7 +31,7 @@ function Navbar() {
 					isMenuShown ? `absolute` : `hidden`
 				} top-0 left-0 w-full h-[100dvh] text-right p-4 bg-[#14161c] gap-10 md:flex md:top-[unset] md:left-[unset] md:w-auto md:h-auto md:gap-8 justify-end`}
 			>
-				<div className="container flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg">
+				<div className="flex flex-col h-full justify-end gap-10 text-2xl md:flex-row md:h-auto md:gap-8 md:text-lg">
 					<li>
 						<Link to="/">Home</Link>
 					</li>
