@@ -15,9 +15,9 @@ p {
 	padding-bottom: 1rem !important;
 }
 
-h1 {
+/* h1 {
 	@apply text-4xl pb-3 mb-2 !important;
-}
+} */
 
 h2 {
 	@apply text-2xl !important;

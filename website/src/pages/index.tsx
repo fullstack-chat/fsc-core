@@ -1,5 +1,6 @@
 import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
+import H1 from '../components/H1';
 import ChatBubble from '../components/ChatBubble';
 import Navbar from '../components/Navbar';
 import { useState } from 'react';
@@ -28,12 +29,12 @@ function IndexPage() {
 					{/* <!-- Shown on large creens --> */}
 					{/* <!-- <g-image alt="fullstack.chat logo" src="/assets/images/logo-2.png" className="logo img-fluid d-none d-lg-block" /> --> */}
 				</div>
-				<div className="md:w-6/12">
-					<h1>👋 Welcome to fullstack.chat!</h1>
+				<div className="md:w-6/12 flow-root">
+					<H1 heading="👋 Welcome to fullstack.chat!" />
 					<div className="welcome-text">
 						We are a welcome and opening community of developers of all
 						skillsets and experience levels. Scroll down to see what our
-						community is all about!
+						community is all about! h1H
 					</div>
 				</div>
 			</div>
