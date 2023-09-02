@@ -28,6 +28,13 @@ h3 {
 	@apply text-2xl pb-1 mb-2 !important;
 }
 
+a {
+	@apply text-white border-b-2 border-solid border-sky-500;
+}
+
+a:hover {
+	@apply border-none;
+}
 h1,
 h2,
 .section-header {

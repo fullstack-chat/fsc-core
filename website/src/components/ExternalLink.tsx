@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import Navbar from './Navbar';
 
 type Props = {
 	href: string;
 	textToShow: string;
+	onClick?: Function;
 };
 
-function ExternalLink({ href, textToShow }: Props) {
+function ExternalLink({ href, textToShow, onClick }: Props) {
 	const [isHovered, setIsHovered] = useState(false);
+	const value = useContext(Navbar.state);
 	const handleMouseEnter = () => {
 		setIsHovered(true);
 	};
@@ -24,6 +27,7 @@ function ExternalLink({ href, textToShow }: Props) {
 			} text-white  border-solid border-sky-500`}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
+			// onClick={() => setIsMenuShown(false)}
 		>
 			{textToShow}
 		</a>
