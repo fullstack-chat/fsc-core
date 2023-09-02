@@ -1,6 +1,7 @@
 import * as React from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
 import H1 from '../components/H1';
+import ExternalLink from '../components/ExternalLink';
 import ChatBubble from '../components/ChatBubble';
 import Navbar from '../components/Navbar';
 import { useState } from 'react';
@@ -34,7 +35,7 @@ function IndexPage() {
 					<div className="welcome-text">
 						We are a welcome and opening community of developers of all
 						skillsets and experience levels. Scroll down to see what our
-						community is all about! h1H
+						community is all about! h1H A
 					</div>
 				</div>
 			</div>

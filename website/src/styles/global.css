@@ -11,13 +11,14 @@
 	background-color: #14161c !important;
 } */
 
+:root {
+	/* Sets base font-size for REMs to be based off of. */
+	font-size: 16px;
+}
+
 p {
 	padding-bottom: 1rem !important;
 }
-
-/* h1 {
-	@apply text-4xl pb-3 mb-2 !important;
-} */
 
 h2 {
 	@apply text-2xl !important;
@@ -54,10 +55,6 @@ h2,
 	height: 80px;
 }
 
-.nav__link {
-	margin-left: 20px;
-}
-
 .footer {
 	display: flex;
 	justify-content: center;
@@ -74,16 +71,6 @@ h2,
 }
 
 /* index */
-
-a {
-	color: white !important;
-	border-bottom: 2px solid #00a8e8;
-}
-
-a:hover {
-	text-decoration: none !important;
-	border-bottom: 2px solid #003459;
-}
 
 .section-link {
 	margin-right: 10px;
