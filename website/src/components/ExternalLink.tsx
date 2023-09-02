@@ -5,7 +5,7 @@ type Props = {
 	textToShow: string;
 };
 
-function ExternalLink({ textToShow }: Props) {
+function ExternalLink({ href, textToShow }: Props) {
 	const [isHovered, setIsHovered] = useState(false);
 	const handleMouseEnter = () => {
 		setIsHovered(true);
@@ -16,7 +16,7 @@ function ExternalLink({ textToShow }: Props) {
 
 	return (
 		<a
-			href={`#`}
+			href={`${href}`}
 			target="_blank"
 			rel="noopener noreferrer"
 			className={`${

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
+import ExternalLink from '../components/ExternalLink';
 import { AiOutlineMenu } from '@react-icons/all-files/ai/AiOutlineMenu';
 import { AiOutlineClose } from '@react-icons/all-files/ai/AiOutlineClose';
 
@@ -35,9 +36,10 @@ function Navbar() {
 						<Link to="/">Home</Link>
 					</li>
 					<li>
-						<a href="https://blog.fullstack.chat/" target="_blank">
-							Blog
-						</a>
+						<ExternalLink
+							href="https://blog.fullstack.chat/"
+							textToShow="Blog"
+						/>
 					</li>
 					<li>
 						<Link to="#about">About</Link>
