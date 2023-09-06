@@ -7,7 +7,10 @@ body {
   margin: 0;
   padding: 0px 0px 20px 0px;
   line-height: 1.5;
-  background-color: #14161c !important;
+  color: #fefefe;
+  @apply bg-[#111111];
+  /* @apply bg-gradient-to-tl from-[#1B1923] to-[#22252F]; */
+  /* background-color: #14161c !important; */
 }
 
 p {
@@ -26,7 +29,7 @@ h3 {
   @apply text-2xl pb-1 mb-2 !important;
 }
 
-.home h1,.home h2, .home .section-header {
+/* .home h1,.home h2, .home .section-header {
   display: inline-block;
   font-family: 'Lato', monospace;
   color: white;
@@ -66,8 +69,6 @@ h3 {
   margin-left: 5px;
 }
 
-/* index */
-
 .home a {
 	color: white !important;
 	border-bottom: 2px solid #00a8e8;
@@ -89,7 +90,6 @@ h3 {
 
 .home .logo-sm-screen {
 	align-content: right;
-  /* margin: 20px auto; * */
 	margin: 0px auto;
 	display: block;
 }
@@ -163,8 +163,6 @@ h3 {
 	padding-right: 10px;
 }
 
-/* ChatBubble.tsx */
-
 .chat-bubble {
   display: flex;
   background-color: #36393F;
@@ -195,10 +193,10 @@ h3 {
 .chat-bubble .text-area .text {
   margin-top: -1px;
   line-height: 16px;
-}
+} */
 
 /* rules section */
-.rules .rules-intro {
+/* .rules .rules-intro {
   color: white;
   margin: 10px 0px 20px 0px;
 }
@@ -224,4 +222,4 @@ h3 {
 .rules .agree-to-rules-button-disabled {
   background-color: #3d6371 !important;
   cursor: not-allowed;
-}
+} */
