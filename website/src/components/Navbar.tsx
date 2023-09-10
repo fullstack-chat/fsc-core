@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'gatsby';
-import ExternalLink from '../components/ExternalLink';
+// import mobileMenu from '../../static/mobile-menu.js';
 import { AiOutlineMenu } from '@react-icons/all-files/ai/AiOutlineMenu';
 import { AiOutlineClose } from '@react-icons/all-files/ai/AiOutlineClose';
 
