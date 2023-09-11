@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "@types/node": "^20.5.4",
+    "@types/node-cron": "^3.0.8",
     "drizzle-kit": "^0.19.13",
     "nodemon": "^3.0.1",
     "typescript": "^5.1.6"
@@ -25,6 +26,7 @@
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.28.5",
+    "node-cron": "^3.0.2",
     "winston": "^3.10.0"
   }
 }
