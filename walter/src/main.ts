@@ -15,13 +15,14 @@ import { registerService } from "./container";
 import SlashCommandManager from "./managers/slash_manager";
 import ScheduledJobManager from "./managers/scheduled_job_manager";
 import { helloWorldJob } from "./jobs/hello_world";
+import { dailyDiscussion } from "./jobs/discussion_question";
 
 const client = new Client({
   intents: [
-    GatewayIntentBits.DirectMessages, 
-    GatewayIntentBits.Guilds, 
-    GatewayIntentBits.GuildMessages, 
-    GatewayIntentBits.MessageContent, 
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
     GatewayIntentBits.GuildModeration
   ],
 });
@@ -44,6 +45,7 @@ client.on(Events.ClientReady, async () => {
     // Register scheduled jobs
     let scheduler = new ScheduledJobManager()
     scheduler.registerJob(helloWorldJob)
+    scheduler.registerJob(dailyDiscussion)
 
     // Register slash commands
     slashCommandManager.addCommand(xp)
