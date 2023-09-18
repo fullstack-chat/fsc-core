@@ -20,8 +20,8 @@ function IndexPage() {
 					</div>
 				</div>
 
-				<div className="flex flex-col md:grid md:grid-cols-2 gap-4 mx-4 my-20">
-					<div className="col-span-2 text-xl font-semibold">
+				<div className="flex flex-col md:grid md:grid-cols-3 gap-4 mx-4 my-20">
+					<div className="col-span-3 text-xl font-semibold">
 						What we do:
 					</div>
 					<UiCard title="X Space">
@@ -32,14 +32,14 @@ function IndexPage() {
 							Follow @fullstackchat
 						</a>
 					</UiCard>
-					{/* <UiCard title="Newsletter">
-						<div>
-							info here about twitter space
+					<UiCard title="Newsletter">
+						<div className="mb-2">
+							Insights currated from leading SaaS builders delivered directly to your inbox. Our newsletter is sent out every other week, also includes community updates and milestones submitted by members.
 						</div>
-						<div>
-							button to get latest
-						</div>
-					</UiCard> */}
+						<a href="https://fullstack-chat.beehiiv.com/subscribe" target="_blank" className="pb-1 border-b-2 border-[#ffffff95] hover:border-[#00a8e8] transition-all">
+							Subscribe
+						</a>
+					</UiCard>
 					<UiCard title="Community">
 						<div className="mb-2">
 							The fullstack.chat Discord community is filled with other builders with the goal of launching and operating successful products.
