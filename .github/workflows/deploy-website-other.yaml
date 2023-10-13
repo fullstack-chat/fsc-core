@@ -1,4 +1,4 @@
-name: Deploy prod
+name: Deploy branch
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Extract branch name
         shell: bash
-        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
         id: extract_branch
       - uses: actions/setup-node@v3
         with:
@@ -28,6 +28,7 @@ jobs:
         run: |
           cd website
           netlify build
+          ls /home/runner/work/fsc-core/fsc-core/public
           netlify deploy --alias ${{ steps.extract_branch.outputs.branch }}
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
