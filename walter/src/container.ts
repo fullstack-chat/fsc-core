@@ -1,5 +1,9 @@
 const services: {[key: string]: any} = {}
 
+export const RegisteredNames = {
+  DiscordClient: "DiscordClient"
+}
+
 export function registerService(service: any, name?: string) {
   if(name) {
     services[name] = service

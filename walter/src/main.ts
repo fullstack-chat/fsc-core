@@ -13,11 +13,12 @@ import { joke } from "./slash/dadjoke"
 import { leaderboard } from "./slash/leaderboard"
 
 import XpManager from "./managers/xp_manager";
-import { registerService } from "./container";
+import { RegisteredNames, registerService } from "./container";
 import SlashCommandManager from "./managers/slash_manager";
 import ScheduledJobManager from "./managers/scheduled_job_manager";
 import { helloWorldJob } from "./jobs/hello_world";
 import { dailyDiscussion } from "./jobs/discussion_question";
+import FaunaService from "./db/FaunaService";
 
 const client = new Client({
   intents: [
@@ -29,23 +30,26 @@ const client = new Client({
   ],
 });
 
+registerService(client, RegisteredNames.DiscordClient)
 registerService(log, "logger")
 
-let slashCommandManager = new SlashCommandManager(log);
+const slashCommandManager = new SlashCommandManager(log);
 registerService(slashCommandManager)
+
+const scheduler = new ScheduledJobManager()
 
 let xpManager: XpManager;
 
 client.on(Events.ClientReady, async () => {
   try {
     if (process.env.IS_XP_ENABLED) {
-      xpManager = new XpManager(log);
+      let fauna = new FaunaService(process.env.FAUNA_SECRET!, "");
+      xpManager = new XpManager(log, fauna);
       await xpManager.init();
       registerService(xpManager);
     }
 
     // Register scheduled jobs
-    let scheduler = new ScheduledJobManager()
     scheduler.registerJob(helloWorldJob)
     scheduler.registerJob(dailyDiscussion)
 
@@ -62,7 +66,6 @@ client.on(Events.ClientReady, async () => {
     log.info("=====")
     log.info("Registered jobs:");
     Object.keys(scheduler.jobs).forEach(c => log.info(`${c} (${scheduler.jobs[c].cron})`));
-
   } catch (err) {
     log.error("Init failed:", err);
   }

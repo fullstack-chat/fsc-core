@@ -16,7 +16,7 @@ export const logger = createLogger({
   transports: [
     // new WinstonCloudWatch({
     //   cloudWatchLogs: new AWS.CloudWatchLogs(),
-    //   logGroupName: 'fullstack-chat', 
+    //   logGroupName: 'fullstack-chat',
     //   logStreamName: 'walter'
     // }),
     new transports.Console({
