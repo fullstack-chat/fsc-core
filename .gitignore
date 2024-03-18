@@ -5,3 +5,4 @@ site/.netlify/functions
 .env.*
 dist
 .build
+.DS_Store

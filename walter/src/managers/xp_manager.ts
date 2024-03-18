@@ -1,58 +1,80 @@
 import { Logger } from "winston";
 import XpRecord from "../models/xp_record";
-import { getDb } from "../db/db";
-import { users } from "../db/schema";
+// import { getDb } from "../db/db";
+// import { userXp, users } from "../db/schema";
 import { sql } from "drizzle-orm";
+import { SQLiteSyncDialect } from "drizzle-orm/sqlite-core";
+import FaunaService from "../db/FaunaService";
 
 export default class XpManager {
+  // userId: XpRecord
   data: { [key: string]: XpRecord } = {};
+  // userId: faunaRecordId
+  recordIds: { [key: string]: string } = {};
   log: Logger;
+  fauna: FaunaService
+  faunaRecordId?: string;
+  collectionName = "user_xp"
 
   // Constants
   private twentyFourHoursInMs = 86400000;
   private fiveMinInMs = 300000;
   private levelUpConst = 0.4;
 
-  constructor(logger: Logger) {
+  constructor(logger: Logger, fauna: FaunaService) {
     this.log = logger;
+    this.fauna = fauna;
   }
 
   async init() {
-    const db = getDb();
-    let records = await db.query.userXp.findMany({
-      with: {
-        user: true,
-      },
-    });
-    records.forEach(
-      (r: any) =>
-        (this.data[r.user_id.toString()] = new XpRecord({
-          lastAppliedTimestamp: r.last_applied_time || 0,
-          currentXp: r.current_xp || 0,
-          multiplier: r.multiplier || 0,
-          username: r.user.username || "",
-          penaltyCount: r.pentalty_count || 0,
-        }))
-    );
+    try {
+      let records = await this.fauna.listRecords(this.collectionName);
+      records.forEach((r: any) => {
+        this.data[r.userId] = new XpRecord({
+          userId: r.userId,
+          lastAppliedTimestamp: r.lastAppliedTimestamp,
+          currentXp: r.currentXp,
+          multiplier: r.multiplier,
+          username: r.username,
+          penaltyCount: r.penaltyCount
+        });
+        this.recordIds[r.userId] = r.id;
+      });
+      console.log(this.recordIds)
+      console.log(this.data)
+    } catch(err: any) {
+      this.log.error(`xpService.init: ${err.toString()}`)
+    }
   }
 
   async saveUser(userId: string, user: XpRecord, isNew: boolean, username: string) {
-    const db = getDb();
-    await db.execute(sql`insert into user_xp
-      ( user_id, last_applied_time, current_xp, multiplier, pentalty_count )
-        VALUES (${BigInt(userId)}, ${user.lastAppliedTimestamp}, ${user.currentXp}, ${user.multiplier}, ${user.penaltyCount})
-      ON DUPLICATE KEY UPDATE
-        last_applied_time = ${user.lastAppliedTimestamp}, 
-        current_xp = ${user.currentXp}, 
-        multiplier = ${user.multiplier}, 
-        pentalty_count = ${user.penaltyCount};`);
-    this.data[userId] = user;
-
     if (isNew) {
-      await db.insert(users).values({
-        id: BigInt(userId),
-        username,
-      });
+      try {
+        let record = await this.fauna.createRecord(this.collectionName, user);
+        this.data[userId] = new XpRecord({
+          userId: userId,
+          lastAppliedTimestamp: record.last_applied_time,
+          currentXp: record.current_xp,
+          multiplier: record.multiplier,
+          username: record.username,
+          penaltyCount: record.pentalty_count
+        });
+        this.recordIds[userId] = record.id;
+
+        await this.fauna.createRecord("users", {
+          userId,
+          username,
+        })
+      } catch (err: any) {
+        this.log.error(`xpService.saveUser: ${err.toString()}`);
+      }
+    } else {
+      try {
+        await this.fauna.updateRecord(this.collectionName, this.recordIds[userId], user);
+        this.data[userId] = user;
+      } catch (err: any) {
+        this.log.error(`xpService.saveUser: ${err.toString()}`);
+      }
     }
   }
 
@@ -66,7 +88,7 @@ export default class XpManager {
   }
 
   async logXp(message: any, userId: string, username: string) {
-    this.log.info(`Logging message for ${username}`);
+    this.log.info(`Logging message for ${username} (${userId})`);
     let currentTimestamp = Date.now();
     let user = this.data[userId];
     let isNew = false;
@@ -74,11 +96,12 @@ export default class XpManager {
       this.log.info("User not found, creating new...");
       isNew = true;
       user = new XpRecord({
+        userId,
         lastAppliedTimestamp: currentTimestamp,
         currentXp: 0,
         multiplier: 1,
         username,
-        penaltyCount: 0,
+        penaltyCount: 0
       });
     }
 
