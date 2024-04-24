@@ -16,7 +16,7 @@ import { xp } from "./slash/xp"
 import { help } from "./slash/help"
 import { joke } from "./slash/dadjoke"
 import { leaderboard } from "./slash/leaderboard"
-import dailyDiscussionCmd from "./jobs/discussion_question";
+import dailyDiscussionCmd from "./slash/discussionQuestion";
 
 import XpManager from "./managers/xp_manager";
 import { RegisteredNames, registerService } from "./container";
