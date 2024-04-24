@@ -40,8 +40,6 @@ export default class XpManager {
         });
         this.recordIds[r.userId] = r.id;
       });
-      console.log(this.recordIds)
-      console.log(this.data)
     } catch(err: any) {
       this.log.error(`xpService.init: ${err.toString()}`)
     }

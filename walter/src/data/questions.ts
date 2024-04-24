@@ -103,3 +103,8 @@ export const conversationQuestions = [
   "What's the best piece of advice you've ever received?",
   "What legacy or impact do you hope to leave behind in the world?"
 ];
+
+export function getRandomDailyDiscussionQuestion() {
+  const idx = Math.floor(Math.random() * conversationQuestions.length)
+  return conversationQuestions[idx]
+}

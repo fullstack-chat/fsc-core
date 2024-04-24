@@ -1,6 +1,11 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 
+import nodeCron from "node-cron";
+import { getRandomDailyDiscussionQuestion } from "./data/questions";
+import { Cronitor } from "cronitor"
+
+
 import { Client, Events, GatewayIntentBits, Interaction } from "discord.js";
 import { CommandManager } from "./managers/command_manager";
 import { sendModBroadcast } from "./security";
@@ -100,3 +105,15 @@ client.on(Events.MessageCreate, async message => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
+const cronitor = new Cronitor(process.env.CRONITOR_KEY as string)
+cronitor.wraps(nodeCron)
+cronitor.schedule("fsc-motd", "0 8 * * *", async () => {
+  const q = getRandomDailyDiscussionQuestion()
+
+  const channelId = process.env.GENERAL_CHANNEL_ID as string;
+  const channel = await client.channels.fetch(channelId)
+
+  //@ts-ignore
+  await channel.send(q)
+})
