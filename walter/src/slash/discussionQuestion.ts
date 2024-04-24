@@ -11,7 +11,7 @@ const helpText = `
       Output: @brianmmdev What is the meaning of life?
 `
 
-export const xp: SlashCommand = {
+export const command: SlashCommand = {
   name: "xp",
   helpText,
   builder: new SlashCommandBuilder()
@@ -23,3 +23,5 @@ export const xp: SlashCommand = {
     return interaction.editReply(q)
   },
 };
+
+export default command
