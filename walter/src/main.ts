@@ -93,15 +93,18 @@ client.on(Events.MessageCreate, async message => {
     xpManager.logXp(message, message.author.id, message.author.username);
   }
 
+  const tag = `<@${client.user!.id}>`
+
   // Someone has mentioned the bot
-  if(message.mentions.has(client.user!.id)) {
+  if(message.mentions.has(client.user!.id) &&
+    (message.content.startsWith(tag) || message.content.endsWith(tag))) {
     // Check if the user has the Patron role, DM them if not
     if(!isSenderPatron(message)) {
       await message.author.send("Sorry, I can't do that for you. Become a patron to unlock this feature!");
       await message.delete()
     } else {
       // Remove the mention from the message
-      let msg = message.content.replace(`<@${client.user!.id}>`, "").trim();
+      let msg = message.content.replace(tag, "").trim();
       // Show a typing indicator
       await message.channel.sendTyping();
       // Send the message to the Ollama API
