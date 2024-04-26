@@ -6,7 +6,7 @@ import { getRandomDailyDiscussionQuestion } from "./data/questions";
 import { Cronitor } from "cronitor"
 
 
-import { Client, Events, GatewayIntentBits, Interaction } from "discord.js";
+import { ChannelType, Client, Events, GatewayIntentBits, Interaction } from "discord.js";
 import { isSenderPatron, sendModBroadcast } from "./security";
 import { logger as log } from "./logger";
 
@@ -121,24 +121,28 @@ client.on(Events.MessageCreate, async message => {
       })
       let data = await res.json();
       const response = data.response.trim();
-      if(response.length > 1999) {
-        let threadname = `"${msg.length > 50 ? msg : `${msg.slice(0, 70)}...`}" by @${message.author.username}`
-        const thread = await message.startThread({
-          name: threadname,
-          autoArchiveDuration: 1440
-        })
+      if(response.length > 1500) {
+        let destination = message.channel;
+        // Create a thread ONLY if were not in one already
+        if(message.channel.type === ChannelType.GuildText) {
+          let threadname = `"${msg.length > 50 ? msg : `${msg.slice(0, 70)}...`}" by @${message.author.username}`
+          destination = await message.startThread({
+            name: threadname,
+            autoArchiveDuration: 1440
+          })
+        }
         let spl = response.split("\n");
         let isWritingCodeBlock = false
         let agg = ""
         for(const chunk of spl) {
-          await thread.sendTyping();
+          await destination.sendTyping();
           if(chunk !== "") {
             if(chunk.startsWith("```")) {
               isWritingCodeBlock = !isWritingCodeBlock
             }
             agg += `${chunk}\n`
             if(!isWritingCodeBlock)  {
-              await thread.send(agg)
+              await destination.send(agg)
               agg = ""
             }
           }
