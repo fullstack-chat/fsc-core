@@ -119,15 +119,25 @@ client.on(Events.MessageCreate, async message => {
       let data = await res.json();
       const response = data.response.trim();
       if(response.length > 1999) {
-        const threadname = `"${msg}" by @${message.author.username}`
+        let threadname = `"${msg.length < 50 ? msg : `${msg.slice(0, 70)}...`}" by @${message.author.username}`
         const thread = await message.startThread({
           name: threadname,
           autoArchiveDuration: 1440
         })
         let spl = response.split("\n");
+        let isWritingCodeBlock = false
+        let agg = ""
         for(const chunk of spl) {
-          if(chunk.trim() !== "") {
-            await thread.send(chunk)
+          await thread.sendTyping();
+          if(chunk !== "") {
+            if(chunk.startsWith("```")) {
+              isWritingCodeBlock = !isWritingCodeBlock
+            }
+            agg += `${chunk}\n`
+            if(!isWritingCodeBlock)  {
+              await thread.send(agg)
+              agg = ""
+            }
           }
         }
       } else {
