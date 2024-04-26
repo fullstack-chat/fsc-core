@@ -115,14 +115,14 @@ client.on(Events.MessageCreate, async message => {
         },
         body: JSON.stringify({
           prompt: msg,
-          model: "llama2",
+          model: "llama3",
           stream: false
         })
       })
       let data = await res.json();
       const response = data.response.trim();
       if(response.length > 1999) {
-        let threadname = `"${msg.length < 50 ? msg : `${msg.slice(0, 70)}...`}" by @${message.author.username}`
+        let threadname = `"${msg.length > 50 ? msg : `${msg.slice(0, 70)}...`}" by @${message.author.username}`
         const thread = await message.startThread({
           name: threadname,
           autoArchiveDuration: 1440
