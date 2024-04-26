@@ -7,8 +7,7 @@ import { Cronitor } from "cronitor"
 
 
 import { Client, Events, GatewayIntentBits, Interaction } from "discord.js";
-import { CommandManager } from "./managers/command_manager";
-import { sendModBroadcast } from "./security";
+import { isSenderPatron, sendModBroadcast } from "./security";
 import { logger as log } from "./logger";
 
 // Commands
@@ -21,9 +20,6 @@ import dailyDiscussionCmd from "./slash/discussionQuestion";
 import XpManager from "./managers/xp_manager";
 import { RegisteredNames, registerService } from "./container";
 import SlashCommandManager from "./managers/slash_manager";
-import ScheduledJobManager from "./managers/scheduled_job_manager";
-import { helloWorldJob } from "./jobs/hello_world";
-import { dailyDiscussion } from "./jobs/discussion_question";
 import FaunaService from "./db/FaunaService";
 
 const client = new Client({
@@ -42,8 +38,6 @@ registerService(log, "logger")
 const slashCommandManager = new SlashCommandManager(log);
 registerService(slashCommandManager)
 
-const scheduler = new ScheduledJobManager()
-
 let xpManager: XpManager;
 
 client.on(Events.ClientReady, async () => {
@@ -54,10 +48,6 @@ client.on(Events.ClientReady, async () => {
       await xpManager.init();
       registerService(xpManager);
     }
-
-    // Register scheduled jobs
-    scheduler.registerJob(helloWorldJob)
-    scheduler.registerJob(dailyDiscussion)
 
     // Register slash commands
     slashCommandManager.addCommand(xp)
@@ -71,8 +61,6 @@ client.on(Events.ClientReady, async () => {
     log.info("Registered slash commands:");
     Object.keys(slashCommandManager.commands).forEach(c => log.info(c));
     log.info("=====")
-    log.info("Registered jobs:");
-    Object.keys(scheduler.jobs).forEach(c => log.info(`${c} (${scheduler.jobs[c].cron})`));
   } catch (err) {
     log.error("Init failed:", err);
   }
@@ -103,6 +91,36 @@ client.on(Events.MessageCreate, async message => {
 
   if (xpManager) {
     xpManager.logXp(message, message.author.id, message.author.username);
+  }
+
+  // Someone has mentioned the bot
+  if(message.mentions.has(client.user!.id)) {
+    // Check if the user has the Patron role, DM them if not
+    if(!isSenderPatron(message)) {
+      await message.author.send("Sorry, I can't do that for you. Become a patron to unlock this feature!");
+      await message.delete()
+    } else {
+      // Remove the mention from the message
+      let msg = message.content.replace(`<@${client.user!.id}>`, "").trim();
+      // Show a typing indicator
+      await message.channel.sendTyping();
+      // Send the message to the Ollama API
+      let res = await fetch(`${process.env.OLLAMA_URL}/api/generate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          prompt: msg,
+          model: "llama2",
+          stream: false
+        })
+      })
+      let data = await res.json();
+
+      // Send the response to the user
+      await message.reply(data.response.trim());
+    }
   }
 });
 

@@ -9,6 +9,10 @@ export async function isMod(message: any, userId: string) {
   return modIds.includes(userId)
 }
 
+export function isSenderPatron(message: any) {
+  return message.member?.roles.cache.has(process.env.PATRON_ROLE_ID as string)
+}
+
 // TODO: type these
 export async function sendModBroadcast(guild: any, messageContent: string) {
   let mods = guild.members.cache
