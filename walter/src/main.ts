@@ -117,9 +117,23 @@ client.on(Events.MessageCreate, async message => {
         })
       })
       let data = await res.json();
-
-      // Send the response to the user
-      await message.reply(data.response.trim());
+      const response = data.response.trim();
+      if(response.length > 1999) {
+        const threadname = `"${msg}" by @${message.author.username}`
+        const thread = await message.startThread({
+          name: threadname,
+          autoArchiveDuration: 1440
+        })
+        let spl = response.split("\n");
+        for(const chunk of spl) {
+          if(chunk.trim() !== "") {
+            await thread.send(chunk)
+          }
+        }
+      } else {
+        // Send the response to the user
+        await message.reply(data.response.trim());
+      }
     }
   }
 });
