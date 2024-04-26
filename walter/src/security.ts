@@ -10,6 +10,8 @@ export async function isMod(message: any, userId: string) {
 }
 
 export function isSenderPatron(message: any) {
+  // TODO: Lock this down once Patreon tiers are set up properly
+  return true
   return message.member?.roles.cache.has(process.env.PATRON_ROLE_ID as string)
 }
 
